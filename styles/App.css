@@ -34,3 +34,13 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/*event form styles*/
+
+.eventForm{
+  width: 400px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 30px;
+}
