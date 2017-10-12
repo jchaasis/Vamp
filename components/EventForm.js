@@ -20,35 +20,35 @@ class EventForm extends Component{
           long:''
         },
       },
-
+      //to be used if we need to display an error message due to invalid input
       error: '',
     }
   }
   //collect the value of the description input
-  //TODO: add profinity validator.
-  handleDescription(ev){
-
-    let input = ev.target.value; //shortened for validation purposes
-
-    this.setState({
-      event: {
-        description: input,
-        category: this.state.event.category,
-        start: this.state.event.start,
-      }
-    })
-  }
-
-  //when a value is clicked, update the category of the event
-  handleCategory(ev){
-    this.setState({
-      event: {
-        description: this.state.event.description,
-        category: ev.target.value,
-      }
-    })
-
-  }
+  // //TODO: add profinity validator.
+  // handleDescription(ev){
+  //
+  //   let input = ev.target.value; //shortened for validation purposes
+  //
+  //   this.setState({
+  //     event: {
+  //       description: input,
+  //       category: this.state.event.category,
+  //       start: this.state.event.start,
+  //     }
+  //   })
+  // }
+  //
+  // //when a value is clicked, update the category of the event
+  // handleCategory(ev){
+  //   this.setState({
+  //     event: {
+  //       description: this.state.event.description,
+  //       category: ev.target.value,
+  //     }
+  //   })
+  //
+  // }
 
   handleAdd(description, category, start, stop, location){
 
