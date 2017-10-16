@@ -15,9 +15,8 @@ class App extends Component {
     }
   }
 
-  //when the add event button is clicked, display the event form
+  //when the add event button, exit button, or add button is clicked, toggle the addEvent state, either displaying the event form or hiding the event form.
   toggleEventForm(){
-
     this.setState({
       addEvent: !this.state.addEvent,
     })
@@ -28,7 +27,6 @@ class App extends Component {
     let addEvent = this.state.addEvent ? <EventForm toggleForm={() => this.toggleEventForm()}/> : null;
 
     return (
-
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Vamp</h1>

@@ -30,10 +30,6 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
 
 /*nav bar*/
 .navBar{
@@ -41,6 +37,18 @@
   padding-top: 50px;
   display: flex;
   flex-direction: column;
+}
+
+
+
+.navBarButton{
+  margin: 20px;
+}
+
+.navBarBars{
+  font-size:2em;
+  line-height: 4px;
+  
 }
 
 /*event form styles*/

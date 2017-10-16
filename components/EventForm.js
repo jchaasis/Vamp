@@ -7,9 +7,8 @@ class EventForm extends Component{
     //store the event data in the local state as users fill out the form.
     this.state = {
 
+  
       //create event object to pass along
-      visible: false,
-
       event:{
         description: '',
         category:'',
@@ -24,32 +23,8 @@ class EventForm extends Component{
       error: '',
     }
   }
-  //collect the value of the description input
-  // //TODO: add profinity validator.
-  // handleDescription(ev){
-  //
-  //   let input = ev.target.value; //shortened for validation purposes
-  //
-  //   this.setState({
-  //     event: {
-  //       description: input,
-  //       category: this.state.event.category,
-  //       start: this.state.event.start,
-  //     }
-  //   })
-  // }
-  //
-  // //when a value is clicked, update the category of the event
-  // handleCategory(ev){
-  //   this.setState({
-  //     event: {
-  //       description: this.state.event.description,
-  //       category: ev.target.value,
-  //     }
-  //   })
-  //
-  // }
 
+  //TODO: add profanity checker
   handleAdd(description, category, start, stop, location){
 
       this.setState({
@@ -62,8 +37,10 @@ class EventForm extends Component{
         }
       })
 
+
     //upon updating the state, we will post the data to the server.
     console.log(this.state.event);
+    this.props.toggleForm();
   }
 
   render(){

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Filter from './Filter'
+
 class NavBar extends Component{
 
   constructor(props){
@@ -27,7 +29,15 @@ class NavBar extends Component{
     if (this.state.visible === false){
       return(
         <div className='toggleNav'>
-          <button onClick={() => this.toggleNav()}> Nav </button>
+          <button className='navBarButton'onClick={() => this.toggleNav()}>
+            <div className='navBarBars'>
+            &#8213;
+            <br/>
+            &#8213;
+            <br/>
+            &#8213;
+            </div>
+          </button>
         </div>
       )
     } else {
@@ -37,6 +47,7 @@ class NavBar extends Component{
             <button onClick={() => this.toggleNav()}> close </button>
             <button onClick={() => this.toggleEventForm()}> Add Event </button>
             <button> filter </button>
+            <Filter />
           </div>
       )
     }
