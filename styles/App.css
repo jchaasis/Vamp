@@ -35,7 +35,20 @@
   to { transform: rotate(360deg); }
 }
 
+/*nav bar*/
+.navBar{
+  background-color: grey;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
 /*event form styles*/
+
+/*main body*/
+.main{
+  display: flex;
+}
 
 .eventForm{
   width: 400px;
