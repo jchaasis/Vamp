@@ -10,11 +10,16 @@ class NavBar extends Component{
     }
   }
 
-  //when the nav button is clicked, display the toolbar options. When the close button is clicked, hide the toolbar. 
+  //when the nav button is clicked, display the toolbar options. When the close button is clicked, hide the toolbar.
   toggleNav(){
     this.setState({
       visible: !this.state.visible,
     })
+  }
+
+  //when the add event button is clicked, trigger the addEvent function in app.js, therefore displaying the form.
+  toggleEventForm(){
+    this.props.addEvent()
   }
 
   render(){
@@ -30,7 +35,7 @@ class NavBar extends Component{
       return(
           <div className='navBar'>
             <button onClick={() => this.toggleNav()}> close </button>
-            <button> Add Event </button>
+            <button onClick={() => this.toggleEventForm()}> Add Event </button>
             <button> filter </button>
           </div>
       )
