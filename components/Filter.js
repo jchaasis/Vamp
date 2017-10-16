@@ -4,6 +4,7 @@ class Filter extends Component {
 
 
   render(){
+
     return(
 
       <form>
@@ -11,7 +12,6 @@ class Filter extends Component {
         <input type='radio' name='sports/outdoors' value='Sports/Outdoors' id='sports/outdoors'/>
         <label htmlFor='sports/outdoors'> Sports/outdoors </label>
         <br/>
-
         <input type='radio' name='Music/Art' value='Music/Art'
         id='Music/Art'/>
         <label htmlFor='Music/Art'> Music/Art </label>

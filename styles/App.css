@@ -39,8 +39,6 @@
   flex-direction: column;
 }
 
-
-
 .navBarButton{
   margin: 20px;
 }
@@ -48,7 +46,7 @@
 .navBarBars{
   font-size:2em;
   line-height: 4px;
-  
+
 }
 
 /*event form styles*/
