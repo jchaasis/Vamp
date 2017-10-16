@@ -19,7 +19,7 @@ class NavBar extends Component{
 
   //when the add event button is clicked, trigger the addEvent function in app.js, therefore displaying the form.
   toggleEventForm(){
-    this.props.addEvent()
+    this.props.toggleForm()
   }
 
   render(){

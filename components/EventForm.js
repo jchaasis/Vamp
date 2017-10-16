@@ -68,7 +68,7 @@ class EventForm extends Component{
 
   render(){
 
-    //establish blank variables
+    //establish blank variables to be used to gather information for the event.
     let description;
     let category;
     let start;
@@ -79,6 +79,7 @@ class EventForm extends Component{
       <div className='eventForm'>
         <label>Description: </label>
         <input type='text' onChange={ ev => description = ev.target.value} maxLength='70'/>
+        <button className="closeForm" onClick={() => this.props.toggleForm()}> X </button>
         <br/>
         <label>Category: </label>
         <select value={this.state.category} onChange={ev=> category = ev.target.value}>

@@ -15,17 +15,17 @@ class App extends Component {
     }
   }
 
+  //when the add event button is clicked, display the event form
   toggleEventForm(){
-    console.log(this.state.addEvent)
+
     this.setState({
       addEvent: !this.state.addEvent,
     })
   }
 
-
   render() {
-    //when the "Add event button is clicked, show the event form"
-    let addEvent = this.state.addEvent ? <EventForm /> : null;
+    //when the "Add event button is clicked, show the event form". pass the toggleEventForm function down to the form so that the exit and add buttons can use it to close the form.
+    let addEvent = this.state.addEvent ? <EventForm toggleForm={() => this.toggleEventForm()}/> : null;
 
     return (
 
@@ -34,7 +34,7 @@ class App extends Component {
           <h1 className="App-title">Vamp</h1>
         </header>
         <main className="main">
-        <NavBar addEvent={()=>this.toggleEventForm()}/>
+        <NavBar toggleForm={()=>this.toggleEventForm()}/>
         { addEvent }
         </main>
         <footer className="App-footer">
