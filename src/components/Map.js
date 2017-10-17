@@ -11,29 +11,35 @@ class Map extends Component {
     }
   }
 
-  //set the state of the current location. 
-  // updateLocation(latitude, longitude){
-  //
-  //   this.setState({
-  //     lat: latitude,
-  //     lng: longitude,
-  //   })
-  // }
+  //set the state of the current location.
+
+  updateLocation(latitude, longitude){
+
+    this.setState({
+      lat: latitude,
+      lng: longitude,
+    })
+  }
 
   //get our currenc location and watch to see if it updates
   getLocation(){
-    let newLat;
-    let newLng;
+    // let newLat;
+    // let newLng;
 
-    navigator.geolocation.watchPosition(function(position){
+    let current = navigator.geolocation.watchPosition(position => {
 
-        newLat = position.coords.latitude;
-        newLng = position.coords.longitude;
-        console.log(newLat, newLng);
+        // newLat = position.coords.latitude;
+        // newLng = position.coords.longitude;
+
+        this.updateLocation(position.coords.latitude, position.coords.longitude);
+
+        // let currentCoords = {lat: newLat , lng: newLng};
+        // console.log(currentCoords);
+        // return(currentCoords);
 
     })
 
-    // console.log(newLat, newLng)
+    // console.log(this.newLat, this.newLng)
     //     this.setState({
     //       lat: newLat,
     //       lng: newLng,
@@ -43,9 +49,10 @@ class Map extends Component {
     // console.log(this.state.lat, this.state.lng)
   }
 
-  componentWillMount(){
-    this.getLocation()
-  }
+  // componentWillMount(){
+  //   this.getLocation().then((results)=> {
+  //     console.log(results)})
+  // }
 
 
   componentDidMount(){

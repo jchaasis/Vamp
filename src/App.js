@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 
 import './styles/App.css';
 
+//import from redux
+import { connect } from 'react-redux'
+
+//import actions
+import { displayEvents } from './actions';
+
 //import components
 import EventForm from './components/EventForm';
 import NavBar from './components/NavBar';
@@ -13,6 +19,10 @@ class App extends Component {
     this.state = {
       addEvent: false,
     }
+  }
+  //get the available events when the app loads
+  componentDidMount(){
+    this.props.display()
   }
 
   //when the add event button, exit button, or add button is clicked, toggle the addEvent state, either displaying the event form or hiding the event form.
@@ -43,4 +53,16 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapDispatch2Props(dispatch){
+  return{
+    display: function(){
+      fetch("https://vamp-app.herokuapp.com/events")
+        .then(resp => resp.json())
+        .then( resp =>
+             dispatch(displayEvents(resp))
+        )
+      }
+  }
+}
+
+export default connect(null, mapDispatch2Props) (App);
