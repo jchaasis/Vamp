@@ -21,23 +21,37 @@
   font-size: 1.5em;
 }
 
-/*map*/
-.mapStyle{
-  display: flex;
-  position: relative;
-  z-index: 1;
-  width: 500px;
-  height: 500px;
-}
+
 
 /*nav bar*/
 .navBar{
   position: absolute;
   z-index: 5;
+  width: 10%;
+  height: 450px;
   background-color: grey;
   padding-top: 50px;
   display: flex;
   flex-direction: column;
+  animation-duration: 2s;
+  animation-name: slidein, slideout;
+
+}
+
+@keyframes slidein {
+  from {
+    margin-right: 100%;
+    width: 0%;
+  }
+
+  to {
+    margin-right: 0%;
+    width: 10%;
+  }
+}
+
+@keyframes slideout {
+
 }
 
 .navBarButton{
@@ -51,16 +65,24 @@
   line-height: 4px;
 }
 
-/*event form styles*/
-
 /*main body*/
 .main{
   display: flex;
 }
 
+/*map*/
+.mapStyle{
+  display: flex;
+  position: relative;
+  z-index: 1;
+  width: 500px;
+  height: 500px;
+}
+
+/*event form styles*/
 .eventForm{
   background-color: white;
-  position: relative;
+  position: absolute;
   z-index: 5;
   width: 400px;
   border: 1px solid grey;

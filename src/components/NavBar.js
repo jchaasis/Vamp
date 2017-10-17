@@ -47,7 +47,7 @@ class NavBar extends Component{
             <button onClick={() => this.toggleNav()}> close </button>
             <button onClick={() => this.toggleEventForm()}> Add Event </button>
             <button> filter </button>
-            <Filter />
+          
           </div>
       )
     }
