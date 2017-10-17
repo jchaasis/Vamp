@@ -107,9 +107,9 @@ handleLocation(ev){
         location: ev.target.value,
       }
     })
-  }
+}
 
-  //TODO: add profanity checker
+//when the form is submitted,
 handleAdd(description, category, start, stop, location){
     console.log(this.state.event)
     let details = this.state.event //shortened for ease of use below
@@ -133,11 +133,7 @@ handleAdd(description, category, start, stop, location){
 
       // this.setState({
       //   event:{
-      //     description: description,
-      //     category: category,
-      //     start: start,
-      //     stop: stop,
-      //     location: location,
+      /
       //   }
       // }, () => {
       //   console.log(this.state.event);
