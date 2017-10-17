@@ -133,7 +133,7 @@ handleAdd(description, category, start, stop, location){
 
       // this.setState({
       //   event:{
-      /
+      
       //   }
       // }, () => {
       //   console.log(this.state.event);
