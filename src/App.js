@@ -5,11 +5,11 @@ import './styles/App.css';
 //import components
 import EventForm from './components/EventForm';
 import NavBar from './components/NavBar';
+import MapDisp from './components/Map';
 
 class App extends Component {
   constructor(props){
     super(props);
-
     this.state = {
       addEvent: false,
     }
@@ -32,8 +32,9 @@ class App extends Component {
           <h1 className="App-title">Vamp</h1>
         </header>
         <main className="main">
-        <NavBar toggleForm={()=>this.toggleEventForm()}/>
-        { addEvent }
+          <NavBar toggleForm={()=>this.toggleEventForm()}/>
+          { addEvent }
+          <MapDisp />
         </main>
         <footer className="App-footer">
         </footer>
