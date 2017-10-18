@@ -22,43 +22,25 @@ class EventForm extends Component{
       error: '',
     }
   }
-  //send the new infor to the database
-  sendEvent(){
-    fetch(`https://vamp-app.herokuapp.com/events`, {
-             method: 'POST',
-             headers: {
-                 'Accept': 'application/json',
-                 'Content-Type': 'application/json',
-             },
-             body: JSON.stringify({
-
-                        event: this.state.event,
-
-             }),
-         }).then(() => {
-          console.log('hello')//  this.props.display(); //update the data in the store
-  })
-}
 
 //handle the description
 handleDescription(ev){
 
-    let input = ev.target.value; //shortened for validation purposes
+  // let input = ev.target.value; //shortened for validation purposes
 
-    this.setState({
-      event: {
-        description: ev.target.value,
-        category: this.state.event.category,
-        start: this.state.event.start,
-        stop: this.state.event.stop,
-        location: this.state.event.location,
-      }
-    })
-  }
+  this.setState({
+    event: {
+      description: ev.target.value,
+      category: this.state.event.category,
+      start: this.state.event.start,
+      stop: this.state.event.stop,
+      location: this.state.event.location,
+    }
+  })
+}
 
-  //when a value is clicked, update the category of the event
- handleCategory(ev){
-
+//when a value is clicked, update the category of the event
+handleCategory(ev){
   this.setState({
     event: {
       description: this.state.event.description,
@@ -68,7 +50,7 @@ handleDescription(ev){
       location: this.state.event.location,
     }
   })
-  }
+}
 //handle start time
 handleStart(ev){
   this.setState({
@@ -95,7 +77,7 @@ handleStop(ev){
     })
   }
 
-  //handle location
+//handle location
    //TODO: geocode location if they provide an address
 handleLocation(ev){
     this.setState({
@@ -114,26 +96,25 @@ handleAdd(description, category, start, stop, location){
     console.log(this.state.event)
     let details = this.state.event //shortened for ease of use below
 
-    fetch(`https://vamp-app.herokuapp.com/events`, {
+    fetch("https://vamp-app.herokuapp.com/add-events", {
              method: 'POST',
              headers: {
                  'Accept': 'application/json',
                  'Content-Type': 'application/json',
              },
              body: JSON.stringify({
-
                         description: details.description,
                         category: details.category,
-                        eventStart: details.start,
-                        eventEnd: details.stop,
-                        location: details.location,
-
+                        eventStart: details.start + ':00',
+                        eventEnd: details.stop + ':00',
+                        latitude: "35.2087",
+                        longitude: "-80.8628",
              }),
          })
 
       // this.setState({
       //   event:{
-      
+
       //   }
       // }, () => {
       //   console.log(this.state.event);

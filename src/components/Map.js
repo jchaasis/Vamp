@@ -23,37 +23,17 @@ class Map extends Component {
 
   //get our currenc location and watch to see if it updates
   getLocation(){
-    // let newLat;
-    // let newLng;
-
-    let current = navigator.geolocation.watchPosition(position => {
-
-        // newLat = position.coords.latitude;
-        // newLng = position.coords.longitude;
+    navigator.geolocation.watchPosition(position => {
 
         this.updateLocation(position.coords.latitude, position.coords.longitude);
 
-        // let currentCoords = {lat: newLat , lng: newLng};
-        // console.log(currentCoords);
-        // return(currentCoords);
-
     })
-
-    // console.log(this.newLat, this.newLng)
-    //     this.setState({
-    //       lat: newLat,
-    //       lng: newLng,
-    //     })
-    //
-    //
-    // console.log(this.state.lat, this.state.lng)
   }
 
-  // componentWillMount(){
-  //   this.getLocation().then((results)=> {
-  //     console.log(results)})
-  // }
-
+  //call getLocation in a different method so that
+  componentWillMount(){
+    this.getLocation()
+  }
 
   componentDidMount(){
     //access Token for map

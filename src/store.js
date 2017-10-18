@@ -15,7 +15,7 @@ function reducer(state, action){
 }
 
 export default createStore(reducer, {
-  events: []
+  events: [],
 
 },
 window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
