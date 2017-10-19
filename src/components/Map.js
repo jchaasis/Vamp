@@ -23,7 +23,7 @@ class Map extends Component {
 
   //get our currenc location and watch to see if it updates
   getLocation(){
-    navigator.geolocation.watchPosition(position => {
+    let current = navigator.geolocation.watchPosition(position => {
 
         this.updateLocation(position.coords.latitude, position.coords.longitude);
 
