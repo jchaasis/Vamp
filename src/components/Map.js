@@ -6,36 +6,33 @@ class Map extends Component {
     super(props);
 
     this.state = {
-      lat: 0,
-      lng: 0,
+      lat: null,
+      lng: null,
     }
   }
 
   //set the state of the current location.
 
   updateLocation(latitude, longitude){
-
     this.setState({
       lat: latitude,
       lng: longitude,
     })
   }
 
-  //get our currenc location and watch to see if it updates
+  //get our current location and watch to see if it updates
   getLocation(){
-
     let current = navigator.geolocation.watchPosition(position => {
-        this.updateLocation(position.coords.latitude, position.coords.longitude);
-
+      this.setState({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      })
     })
-
   }
 
-  // componentWillMount(){
-  //   this.getLocation().then((results)=> {
-  //     console.log(results)})
-  // }
-
+  componentWillMount(){
+    this.getLocation()
+  }
 
   componentDidMount(){
     //access Token for map
@@ -43,7 +40,7 @@ class Map extends Component {
     //map details
     this.map = new window.mapboxgl.Map({
         container: 'map',
-        center:[this.state.lat, this.state.lng],
+        center:[this.state.lng, this.state.lat],
         style: 'mapbox://styles/vamplife/cj8om9bgf8tm92ro2i66lz2uh',
         positionOptions: {
             enableHighAccuracy: true
@@ -52,12 +49,26 @@ class Map extends Component {
     });
 
     // Add geolocate control to the map.
-    this.map.addControl(new window.mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true
-    },
-      trackUserLocation: true,
-    }));
+    // this.map.addControl(new window.mapboxgl.GeolocateControl({
+    // positionOptions: {
+    //     enableHighAccuracy: true
+    // },
+    //   trackUserLocation: true,
+    // }));
+
+    //create a marker to designate the current location of the user.
+    // let getCurrent=()=>{
+    //   if (this.state.lng !== 0){
+    //     let curr = document.createElement('div');//create div for the marker
+    //     curr.className = 'marker';
+    //
+    //     const current = new window.mapboxgl.Marker(curr)
+    //       .setLngLat([this.state.lng, this.state.lat])
+    //       .addTo(this.map)
+    //
+    //       console.log(current)
+    //   }
+    // }
 
     // let point = <div className='marker'></div>
     fetch("https://vamp-app.herokuapp.com/events")
@@ -73,18 +84,29 @@ class Map extends Component {
           // .setPopup(popup)
           .addTo(this.map);
         }
-
-
     });
+}
 
-
+//get the users current location
+getCurrent(){
+  //Wait for the coordinates to update, and once they do, display the icon
+    let curr = document.createElement('div');//create div for the marker
+    curr.className = 'marker';
+    //set the coordinates for the marker and add it to the map
+    const current = new window.mapboxgl.Marker(curr)
+      .setLngLat([this.state.lng, this.state.lat])
+      .addTo(this.map)
 
 }
 
   render(){
+    //get the users current location
+    // if (this.state.lat !== null){
+    //   this.getCurrent()
+    // }
+
 
     console.log(this.state.lat, this.state.lng)
-
 
     return(
 

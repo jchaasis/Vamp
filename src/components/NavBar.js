@@ -44,10 +44,16 @@ class NavBar extends Component{
 
       return(
           <div className='navBar'>
-            <button onClick={() => this.toggleNav()}> close </button>
+            <button onClick={() => this.toggleNav()} className='closeButton'> <div className='navBarBars'>
+            &#8213;
+            <br/>
+            &#8213;
+            <br/>
+            &#8213;
+            </div> </button>
             <button onClick={() => this.toggleEventForm()}> Add Event </button>
             <button> filter </button>
-          
+
           </div>
       )
     }

@@ -19,8 +19,10 @@ class EventForm extends Component{
         },
       },
       //to be used if we need to display an error message due to invalid input
-      error: '',
+      results:'',
     }
+
+
   }
 
 //handle the description
@@ -79,7 +81,22 @@ handleStop(ev){
 
 //handle location
    //TODO: geocode location if they provide an address
+
+
+
 handleLocation(ev){
+  let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${ev.target.value}.json?access_token=pk.eyJ1IjoidmFtcGxpZmUiLCJhIjoiY2o4bHM5YmxpMHIxcjJwanNjdzZnb3ZqdSJ9.vIPUzwa3sv1H3X0CfSbchg`;
+
+  fetch(url)
+  .then(resp => resp.json())
+  .then( resp => {
+      console.log(resp.features)
+      let results = resp.features.map(result => result.place_name);
+      console.log(results);
+    }
+  )
+
+
     this.setState({
       event: {
         description: this.state.event.description,
@@ -107,8 +124,8 @@ handleAdd(description, category, start, stop, location){
                         category: details.category,
                         eventStart: details.start + ':00',
                         eventEnd: details.stop + ':00',
-                        latitude: "35.2087",
-                        longitude: "-80.8628",
+                        latitude: "35.2272746",
+                        longitude: "-80.84646029999999",
              }),
          })
 
