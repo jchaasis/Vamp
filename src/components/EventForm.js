@@ -7,7 +7,6 @@ class EventForm extends Component{
 
     //store the event data in the local state as users fill out the form.
     this.state = {
-
       //create event object to pass along
       event:{
         description: '',
@@ -15,15 +14,13 @@ class EventForm extends Component{
         start: '',
         stop: '',
         location: {
+          name: '',
           lat:'',
           long:''
         },
       },
-      //to be used if we need to display an error message due to invalid input
-      searchResults: null,
+      searchResults: null, //location fetch results
     }
-
-
   }
 
 //handle the description
@@ -81,17 +78,38 @@ handleStop(ev){
   }
 
 //handle location
-   //TODO: geocode location if they provide an address
+   //TODO: clean up the results of the geocoding so that they show only relevant results
 
+updateLocation(locInfo){
+  console.log(locInfo)
+  this.setState({
+    event:{
+      description: this.state.event.description,
+      category: this.state.event.category,
+      start: this.state.event.start,
+      stop: this.state.event.stop,
+        location: {
+        name: locInfo.place_name,
+        lat: locInfo.center[1],
+        lng: locInfo.center[0],
+      }
+    }
+  })
+
+  console.log(this.state.event)
+}
 
 handleLocation(ev){
   let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${ev.target.value}.json?access_token=pk.eyJ1IjoidmFtcGxpZmUiLCJhIjoiY2o4bHM5YmxpMHIxcjJwanNjdzZnb3ZqdSJ9.vIPUzwa3sv1H3X0CfSbchg`;
   //fetch matching results as a user types in a location.
   fetch(url)
     .then(resp => resp.json()) //parse the json
-    .then(resp => this.setState({   //store the results in local state
-      searchResults: resp.features ? resp.features : [],
-    }))
+    .then(resp => { console.log(resp.features)
+      this.setState({   //store the results in local state
+      searchResults: resp.features ? resp.features : [], //if there is a result, push the result to the
+      })
+    }
+    )
 
     this.setState({
       event: {
@@ -99,7 +117,10 @@ handleLocation(ev){
         category: this.state.event.category,
         start: this.state.event.start,
         stop: this.state.event.stop,
-        location: ev.target.value,
+        location: {
+            name: this.state.event.location.name,
+            lat: this.state.event.location.lat,
+            lng: this.state.event.location.lng}
       }
     })
 
@@ -122,8 +143,8 @@ handleAdd(description, category, start, stop, location){
                         category: details.category,
                         eventStart: details.start + ':00',
                         eventEnd: details.stop + ':00',
-                        latitude: "35.2272746",
-                        longitude: "-80.84646029999999",
+                        latitude: details.location.lat,
+                        longitude: details.location.lng,
              }),
          })
 
@@ -144,14 +165,8 @@ handleAdd(description, category, start, stop, location){
   render(){
     let results;
     if (this.state.searchResults !== null){
-      results = this.state.searchResults.map(details => <LocationResult location={details} />)
+      results = this.state.searchResults.map((details, index) => <LocationResult key={index} location={details} updateLocation={(locInfo)=> this.updateLocation(locInfo)}/>)
     }
-
-    // let results = resp.features.map(result => result.place_name);
-
-
-
-    //establish blank variables to be used to gather information for the event.
 
     return(
       <div className='eventForm'>
@@ -174,10 +189,10 @@ handleAdd(description, category, start, stop, location){
         <input type='time' onChange={ev => this.handleStop(ev)}/>
         <br/>
         <label>Location: </label>
-        <input type='text' onChange={ev => this.handleLocation(ev)}/>
+        <input type='text' onChange={ev => this.handleLocation(ev)} />
         <br/>
-        <ul>
-        { results }
+        <ul className='searchResultsList'>
+          { results }
         </ul>
         <button onClick={()=> this.handleAdd()}> Add </button>
       </div>

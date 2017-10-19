@@ -94,6 +94,10 @@
   margin: 30px;
 }
 
+.searchResultsList{
+  list-style: none;
+}
+
 /*marker styles*/
 .marker {
   background-image: url('mapbox-icon.png');
