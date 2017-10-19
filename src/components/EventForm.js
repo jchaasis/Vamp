@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import LocationResult from './LocationResult';
 class EventForm extends Component{
   constructor(props){
     super(props)
@@ -19,7 +20,7 @@ class EventForm extends Component{
         },
       },
       //to be used if we need to display an error message due to invalid input
-      results:'',
+      searchResults: null,
     }
 
 
@@ -83,19 +84,14 @@ handleStop(ev){
    //TODO: geocode location if they provide an address
 
 
-
 handleLocation(ev){
   let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${ev.target.value}.json?access_token=pk.eyJ1IjoidmFtcGxpZmUiLCJhIjoiY2o4bHM5YmxpMHIxcjJwanNjdzZnb3ZqdSJ9.vIPUzwa3sv1H3X0CfSbchg`;
-
+  //fetch matching results as a user types in a location.
   fetch(url)
-  .then(resp => resp.json())
-  .then( resp => {
-      console.log(resp.features)
-      let results = resp.features.map(result => result.place_name);
-      console.log(results);
-    }
-  )
-
+    .then(resp => resp.json()) //parse the json
+    .then(resp => this.setState({   //store the results in local state
+      searchResults: resp.features ? resp.features : [],
+    }))
 
     this.setState({
       event: {
@@ -106,6 +102,8 @@ handleLocation(ev){
         location: ev.target.value,
       }
     })
+
+    console.log(this.state)
 }
 
 //when the form is submitted,
@@ -144,6 +142,14 @@ handleAdd(description, category, start, stop, location){
 }
 
   render(){
+    let results;
+    if (this.state.searchResults !== null){
+      results = this.state.searchResults.map(details => <LocationResult location={details} />)
+    }
+
+    // let results = resp.features.map(result => result.place_name);
+
+
 
     //establish blank variables to be used to gather information for the event.
 
@@ -170,6 +176,9 @@ handleAdd(description, category, start, stop, location){
         <label>Location: </label>
         <input type='text' onChange={ev => this.handleLocation(ev)}/>
         <br/>
+        <ul>
+        { results }
+        </ul>
         <button onClick={()=> this.handleAdd()}> Add </button>
       </div>
     )
