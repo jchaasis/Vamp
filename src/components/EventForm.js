@@ -77,7 +77,7 @@ handleStop(ev){
     })
   }
 
-//handle location
+//when a location on the provided list is clicked, handle location
    //TODO: clean up the results of the geocoding so that they show only relevant results
 
 updateLocation(locInfo){
@@ -93,13 +93,20 @@ updateLocation(locInfo){
         lat: locInfo.center[1],
         lng: locInfo.center[0],
       }
-    }
-  })
+    },
+    searchResults: null,
+  }), ()=>{
+    this.setState({
+        searchResults: null, //location fetch results
+    })
+  }
+  //callback. after we store the info, make the search results null so that we do not have to see the dropdown box anymore
 
-  console.log(this.state.event)
+  console.log(this.state)
 }
 
 handleLocation(ev){
+
   let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${ev.target.value}.json?access_token=pk.eyJ1IjoidmFtcGxpZmUiLCJhIjoiY2o4bHM5YmxpMHIxcjJwanNjdzZnb3ZqdSJ9.vIPUzwa3sv1H3X0CfSbchg`;
   //fetch matching results as a user types in a location.
   fetch(url)
@@ -108,8 +115,7 @@ handleLocation(ev){
       this.setState({   //store the results in local state
       searchResults: resp.features ? resp.features : [], //if there is a result, push the result to the
       })
-    }
-    )
+    })
 
     this.setState({
       event: {
@@ -118,12 +124,12 @@ handleLocation(ev){
         start: this.state.event.start,
         stop: this.state.event.stop,
         location: {
-            name: this.state.event.location.name,
+            name: this.state.event.location.place_name,
             lat: this.state.event.location.lat,
-            lng: this.state.event.location.lng}
+            lng: this.state.event.location.lng
+        }
       }
     })
-
     console.log(this.state)
 }
 
@@ -132,6 +138,7 @@ handleAdd(description, category, start, stop, location){
     console.log(this.state.event)
     let details = this.state.event //shortened for ease of use below
 
+    //send the newly added event to the server.
     fetch("https://vamp-app.herokuapp.com/add-events", {
              method: 'POST',
              headers: {
@@ -146,7 +153,11 @@ handleAdd(description, category, start, stop, location){
                         latitude: details.location.lat,
                         longitude: details.location.lng,
              }),
+         }).then(()=>{
+           console.log('made it to the toggle portion')
+           this.props.toggleForm()
          })
+
 
       // this.setState({
       //   event:{
@@ -189,7 +200,7 @@ handleAdd(description, category, start, stop, location){
         <input type='time' onChange={ev => this.handleStop(ev)}/>
         <br/>
         <label>Location: </label>
-        <input type='text' onChange={ev => this.handleLocation(ev)} />
+        <input type='text' value={this.state.event.location.name} onChange={ev => this.handleLocation(ev)} />
         <br/>
         <ul className='searchResultsList'>
           { results }

@@ -48,13 +48,7 @@ class Map extends Component {
           trackUserLocation: true
     });
 
-    // Add geolocate control to the map.
-    // this.map.addControl(new window.mapboxgl.GeolocateControl({
-    // positionOptions: {
-    //     enableHighAccuracy: true
-    // },
-    //   trackUserLocation: true,
-    // }));
+  
 
     //create a marker to designate the current location of the user.
     // let getCurrent=()=>{

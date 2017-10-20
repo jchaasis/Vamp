@@ -95,6 +95,10 @@
 }
 
 .searchResultsList{
+  margin-top: none;
+  background-color: white;
+  position: relative;
+  z-index: 10;
   list-style: none;
 }
 
