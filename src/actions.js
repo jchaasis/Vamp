@@ -4,3 +4,10 @@ export function displayEvents(dispEvents){
     payload: dispEvents
   }
 }
+
+export function getCurrentLoc(location){
+  return{
+    type: 'CURRENT',
+    payload: location
+  }
+}

@@ -7,6 +7,7 @@ class EventForm extends Component{
 
     //store the event data in the local state as users fill out the form.
     this.state = {
+      location_text: '', // text that appears in the box
       //create event object to pass along
       event:{
         description: '',
@@ -83,6 +84,8 @@ handleStop(ev){
 updateLocation(locInfo){
   console.log(locInfo)
   this.setState({
+    location_text: locInfo.place_name,
+
     event:{
       description: this.state.event.description,
       category: this.state.event.category,
@@ -117,19 +120,21 @@ handleLocation(ev){
       })
     })
 
-    this.setState({
-      event: {
-        description: this.state.event.description,
-        category: this.state.event.category,
-        start: this.state.event.start,
-        stop: this.state.event.stop,
-        location: {
-            name: this.state.event.location.place_name,
-            lat: this.state.event.location.lat,
-            lng: this.state.event.location.lng
-        }
-      }
-    })
+    this.setState({ location_text: ev.target.value });
+
+    // this.setState({
+    //   event: {
+    //     description: this.state.event.description,
+    //     category: this.state.event.category,
+    //     start: this.state.event.start,
+    //     stop: this.state.event.stop,
+    //     location: {
+    //         name: this.state.event.location.place_name,
+    //         lat: this.state.event.location.lat,
+    //         lng: this.state.event.location.lng
+    //     }
+    //   }
+    // })
     console.log(this.state)
 }
 
@@ -153,23 +158,11 @@ handleAdd(description, category, start, stop, location){
                         latitude: details.location.lat,
                         longitude: details.location.lng,
              }),
-         }).then(()=>{
-           console.log('made it to the toggle portion')
-           this.props.toggleForm()
-         })
-
-
-      // this.setState({
-      //   event:{
-
-      //   }
-      // }, () => {
-      //   console.log(this.state.event);
-      //   this.props.toggleForm();
-      // })
-      // .then(()=>{
-      //   this.sendEvent()
-      // })
+    }).then(()=>{
+       //TODO: dispatch the display action
+       console.log('made it to the toggle portion')
+       this.props.toggleForm()
+    })
 
 }
 
@@ -181,26 +174,29 @@ handleAdd(description, category, start, stop, location){
 
     return(
       <div className='eventForm'>
-        <label>Description: </label>
-        <input type='text' onChange={ ev => this.handleDescription(ev)} maxLength='70'/>
-        <button className="closeForm" onClick={() => this.props.toggleForm()}> X </button>
+      <button className="closeForm" onClick={() => this.props.toggleForm()}> X </button>
+        <label className='formLabel'>Description: </label>
+
+        <input type='text' className='formInput' placeholder='Description' onChange={ ev => this.handleDescription(ev)} maxLength='70'/>
+
         <br/>
-        <label>Category: </label>
-        <select value={this.state.category} onChange={ev=> this.handleCategory(ev)}>
+        <input type="range" multiple min="0" step="1" max="10" data-values="1 9"/>
+        <label className='formLabel'>Category: </label>
+        <select className='formInput' value={this.state.category} onChange={ev=> this.handleCategory(ev)}>
           <option value='Sports/Outdoors'> Sports/Outdoors </option>
           <option value='Music/Art'> Music/Art </option>
           <option value='Food/Bev'> Food/Bev </option>
           <option value='Community'> Community </option>
         </select>
         <br/>
-        <label>Start: </label>
-        <input type='time'onChange={ev => this.handleStart(ev)}/>
+        <label className='formLabel'>Start: </label>
+        <input type='time' className='formInput' placeholder='start time' onChange={ev => this.handleStart(ev)}/>
         <br/>
-        <label>Stop: </label>
-        <input type='time' onChange={ev => this.handleStop(ev)}/>
+        <label className='formLabel'>Stop: </label>
+        <input type='time' className='formInput' onChange={ev => this.handleStop(ev)}/>
         <br/>
-        <label>Location: </label>
-        <input type='text' value={this.state.event.location.name} onChange={ev => this.handleLocation(ev)} />
+        <label className='formLabel'>Location: </label>
+        <input type='text' className='formInput' value={this.state.location_text} onChange={ev => this.handleLocation(ev)} />
         <br/>
         <ul className='searchResultsList'>
           { results }

@@ -3,12 +3,19 @@ import { createStore } from 'redux';
 
 function reducer(state, action){
   console.log(action)
-
   if (action.type === 'DISPLAY'){
-    console.log(action.payload)
     return{
       events: action.payload,
     }
+  }
+
+  if (action.type === 'CURRENT'){
+    console.log(action.payload)
+    return{
+      events: state.events,
+      location: action.payload
+    }
+
   }
 
   return state;

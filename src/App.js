@@ -29,7 +29,6 @@ class App extends Component {
 
   //when the add event button, exit button, or add button is clicked, toggle the addEvent state, either displaying the event form or hiding the event form.
   toggleEventForm(){
-    console.log('toggled')
     this.setState({
       addEvent: !this.state.addEvent,
     })

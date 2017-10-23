@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
+
 import Marker from './Marker';
+
+//import from redux
+import { connect } from 'react-redux';
+
+//import actions
+import { displayEvents, getCurrentLoc } from '../actions';
 
 class Map extends Component {
   constructor(props){
     super(props);
-
+    //store coordinates of the current location
     this.state = {
-<<<<<<< HEAD
+
       lat: null,
       lng: null,
-=======
-      lat: 0,
-      lng: 0,
       addMark: [],
->>>>>>> points
+
     }
   }
 
-  //set the state of the current location.
-
+  //set the state of the current location. TODO: delete this function in development
   updateLocation(latitude, longitude){
     this.setState({
       lat: latitude,
@@ -32,12 +35,12 @@ class Map extends Component {
       this.setState({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-      })
+      }, () => this.getCurrent())
     })
   }
 
   componentWillMount(){
-    this.getLocation()
+    // this.props.getCurrentLoc()
   }
 
   componentDidMount(){
@@ -54,23 +57,8 @@ class Map extends Component {
           trackUserLocation: true
     });
 
-  
+    this.getLocation();
 
-    //create a marker to designate the current location of the user.
-    // let getCurrent=()=>{
-    //   if (this.state.lng !== 0){
-    //     let curr = document.createElement('div');//create div for the marker
-    //     curr.className = 'marker';
-    //
-    //     const current = new window.mapboxgl.Marker(curr)
-    //       .setLngLat([this.state.lng, this.state.lat])
-    //       .addTo(this.map)
-    //
-    //       console.log(current)
-    //   }
-    // }
-
-    // let point = <div className='marker'></div>
     fetch("https://vamp-app.herokuapp.com/events")
       .then(resp => resp.json())
       .then(response => {
@@ -82,30 +70,32 @@ class Map extends Component {
           const marker = new window.mapboxgl.Marker(el)
           .setLngLat([response[i].longitude, response[i].latitude])
           // .setPopup(popup)
-          .addTo(this.map);
+          .addTo(this.map)
+
         }
         // addPoint(response){
         //   this.setState({
         //     addMark: [response]
         //   })
-  
+
         // }
         // for (let i = 0; i < response.length; i++) {
         //   let el = document.createElement('div');
         //   el.className = 'marker';
-  
+
         //   const marker = new window.mapboxgl.Marker(el)
         //   .setLngLat([response[i].longitude, response[i].latitude])
         //   // .setPopup(popup)
         //   .addTo(this.map);
         // }
-  
+
 
     });
 }
 
 //get the users current location
 getCurrent(){
+
   //Wait for the coordinates to update, and once they do, display the icon
     let curr = document.createElement('div');//create div for the marker
     curr.className = 'marker';
@@ -113,10 +103,15 @@ getCurrent(){
     const current = new window.mapboxgl.Marker(curr)
       .setLngLat([this.state.lng, this.state.lat])
       .addTo(this.map)
+}
+//
+componentWillUpdate(){
+  console.log('updated ' + this.state.lat + '' + this.state.lng)
 
 }
 
   render(){
+
     //get the users current location
     // if (this.state.lat !== null){
     //   this.getCurrent()
@@ -137,15 +132,40 @@ getCurrent(){
 
     console.log(this.state.lat, this.state.lng)
 
-    return(
 
-        <div id='map' className='mapStyle' ref={el => this.map = el}>
-          {/* <div className='marker' ref={el => this.map = el}></div> */}
+    return(
+        <div id='map' className='mapStyle'>
 
         </div>
-
     )
   }
 }
 
-export default Map;
+function mapState2Props(state){
+  return{
+    events: state.events,
+    location: state.location
+  }
+}
+
+function mapDispatch2Props(dispatch){
+  return{
+    display: function(){
+      fetch("https://vamp-app.herokuapp.com/events")
+        .then(resp => resp.json())
+        .then( resp =>
+             dispatch(displayEvents(resp))
+        )
+    },
+    getCurrentLoc: function(){
+    navigator.geolocation.watchPosition(position => {
+        dispatch(getCurrentLoc({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        }))
+      })
+    }
+  }
+}
+
+export default connect(mapState2Props, mapDispatch2Props) (Map);
