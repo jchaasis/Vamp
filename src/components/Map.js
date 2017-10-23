@@ -11,7 +11,7 @@ import { displayEvents, getCurrentLoc } from '../actions';
 class Map extends Component {
   constructor(props){
     super(props);
-
+    //store coordinates of the current location
     this.state = {
       lat: null,
       lng: null,
@@ -75,8 +75,7 @@ class Map extends Component {
 
 //get the users current location
 getCurrent(){
-  console.log('adding marker');
-  console.log(this.map);
+
   //Wait for the coordinates to update, and once they do, display the icon
     let curr = document.createElement('div');//create div for the marker
     curr.className = 'marker';
@@ -84,8 +83,6 @@ getCurrent(){
     const current = new window.mapboxgl.Marker(curr)
       .setLngLat([this.state.lng, this.state.lat])
       .addTo(this.map)
-
-      console.log('marked');
 }
 //
 componentWillUpdate(){
@@ -95,12 +92,9 @@ componentWillUpdate(){
 
   render(){
 
-
     return(
-
         <div id='map' className='mapStyle'>
-         {/*<div id='map' className='mapStyle' ref={el => this.map = el}>*/}
-          {/* <div className='marker' ref={el => this.map = el}></div> */}
+
         </div>
     )
   }
