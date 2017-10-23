@@ -93,6 +93,33 @@
 
 /*marker styles*/
 .marker {
+  background-image: url('sport-material.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.marker2 {
+  background-image: url('music.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.marker3 {
+  background-image: url('food.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.marker4 {
   background-image: url('community.png');
   background-size: cover;
   width: 50px;

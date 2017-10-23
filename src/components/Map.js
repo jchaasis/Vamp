@@ -8,6 +8,7 @@ class Map extends Component {
     this.state = {
       lat: 0,
       lng: 0,
+      addMark: [],
     }
   }
 
@@ -64,15 +65,21 @@ class Map extends Component {
       .then(resp => resp.json())
       .then(response => {
         console.log(response)
-        for (let i = 0; i < response.length; i++) {
-          let el = document.createElement('div');
-          el.className = 'marker';
+        // addPoint(response){
+        //   this.setState({
+        //     addMark: [response]
+        //   })
   
-          const marker = new window.mapboxgl.Marker(el)
-          .setLngLat([response[i].longitude, response[i].latitude])
-          // .setPopup(popup)
-          .addTo(this.map);
-        }
+        // }
+        // for (let i = 0; i < response.length; i++) {
+        //   let el = document.createElement('div');
+        //   el.className = 'marker';
+  
+        //   const marker = new window.mapboxgl.Marker(el)
+        //   .setLngLat([response[i].longitude, response[i].latitude])
+        //   // .setPopup(popup)
+        //   .addTo(this.map);
+        // }
   
 
     });
@@ -82,6 +89,18 @@ class Map extends Component {
 }
 
   render(){
+
+    console.log(this.state.addMark)
+
+    for (let i = 0; i < this.state.addMark.length; i++) {
+      let el = document.createElement('div');
+      el.className = 'marker';
+
+      const marker = new window.mapboxgl.Marker(el)
+      .setLngLat([this.state.addMark[i].longitude, this.state.addMark[i].latitude])
+      // .setPopup(popup)
+      .addTo(this.map);
+    }
 
     console.log(this.state.lat, this.state.lng)
   
