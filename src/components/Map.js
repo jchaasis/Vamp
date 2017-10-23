@@ -89,9 +89,9 @@ class Map extends Component {
         //   .addTo(this.map);
         // }
 
-          this.setState({
-            addMark: response,
-          })
+          // this.setState({
+          //   addMark: response,
+          // })
 
 
     });
@@ -114,6 +114,8 @@ componentWillUpdate(){
 }
 
   render(){
+    console.log(this.state.addMark);
+
     let details= this.state.addMark
 
     for (let i = 0; i < this.state.addMark.length; i++) {
@@ -125,7 +127,8 @@ componentWillUpdate(){
 
       if (newMark.category === "Sports/Outdoors") {
         el.classList.add('marker')
-      } else if (newMark.category === "Community") {
+      }
+      else if (newMark.category === "Community") {
         el.classList.add('marker4')
       } else if (newMark.category === "Food/Bev") {
         el.classList.add('marker3')
@@ -135,9 +138,9 @@ componentWillUpdate(){
         el.classList.add('marker5')
       }
 
-      //create a custom popup for each individual item
+      // create a custom popup for each individual item
       let popup = new window.mapboxgl.Popup({ offset: 25 })
-        .setHTML('<h3>' + details[i].description + '</h3><p>' + details[i].eventStart + '-' + details[i].eventEnd + '</p><button>' + '&#128077;' + '</button><span> : ' +details[i].likes.length + '<span>'
+        .setHTML('<h3>' + details[i].description + '</h3><p>' + details[i].eventStart + '-' + details[i].eventEnd + '</p><button>' + '&#128077;' + '</button><span> : ' + details[i].likes.length + '<span>'
         );
 
       //create a marker
