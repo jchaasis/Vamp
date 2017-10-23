@@ -21,8 +21,6 @@
   font-size: 1.5em;
 }
 
-
-
 /*nav bar*/
 .navBar{
   position: absolute;
@@ -92,6 +90,26 @@
   border-radius: 5px;
   padding: 5px;
   margin: 30px;
+}
+
+.closeForm{
+  float: right;
+}
+
+.formLabel{
+
+}
+
+.formInput{
+  border-bottom: 1px solid black;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+.formInput:focus{
+  border-bottom: 2px solid green;
+  outline: none;
 }
 
 .searchResultsList{
