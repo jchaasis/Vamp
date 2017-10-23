@@ -6,8 +6,14 @@ class Map extends Component {
     super(props);
 
     this.state = {
+<<<<<<< HEAD
       lat: null,
       lng: null,
+=======
+      lat: 0,
+      lng: 0,
+      addMark: [],
+>>>>>>> points
     }
   }
 
@@ -78,6 +84,23 @@ class Map extends Component {
           // .setPopup(popup)
           .addTo(this.map);
         }
+        // addPoint(response){
+        //   this.setState({
+        //     addMark: [response]
+        //   })
+  
+        // }
+        // for (let i = 0; i < response.length; i++) {
+        //   let el = document.createElement('div');
+        //   el.className = 'marker';
+  
+        //   const marker = new window.mapboxgl.Marker(el)
+        //   .setLngLat([response[i].longitude, response[i].latitude])
+        //   // .setPopup(popup)
+        //   .addTo(this.map);
+        // }
+  
+
     });
 }
 
@@ -99,6 +122,18 @@ getCurrent(){
     //   this.getCurrent()
     // }
 
+
+    console.log(this.state.addMark)
+
+    for (let i = 0; i < this.state.addMark.length; i++) {
+      let el = document.createElement('div');
+      el.className = 'marker';
+
+      const marker = new window.mapboxgl.Marker(el)
+      .setLngLat([this.state.addMark[i].longitude, this.state.addMark[i].latitude])
+      // .setPopup(popup)
+      .addTo(this.map);
+    }
 
     console.log(this.state.lat, this.state.lng)
 

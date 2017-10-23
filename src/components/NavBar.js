@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import Filter from './Filter'
 
+import Legend from './Legend';
+
+
 class NavBar extends Component{
 
   constructor(props){
@@ -54,6 +57,8 @@ class NavBar extends Component{
             <button onClick={() => this.toggleEventForm()}> Add Event </button>
             <button> filter </button>
 
+            <Legend />
+          
           </div>
       )
     }

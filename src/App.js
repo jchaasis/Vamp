@@ -13,6 +13,8 @@ import EventForm from './components/EventForm';
 import NavBar from './components/NavBar';
 import MapDisp from './components/Map';
 
+// import Legend from './components/Legend';
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -48,6 +50,7 @@ class App extends Component {
           <MapDisp />
         </main>
         <footer className="App-footer">
+          {/* <Legend /> */}
         </footer>
       </div>
     );
