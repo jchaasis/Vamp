@@ -63,20 +63,20 @@ class Map extends Component {
       .then(resp => resp.json())
       .then(response => {
         console.log(response)
-        for (let i = 0; i < response.length; i++) {
-          let el = document.createElement('div');
-          el.className = 'marker';
+        // for (let i = 0; i < response.length; i++) {
+        //   let el = document.createElement('div');
+        //   el.className = 'marker';
+        //
+        //   const marker = new window.mapboxgl.Marker(el)
+        //   .setLngLat([response[i].longitude, response[i].latitude])
+        //   // .setPopup(popup)
+        //   .addTo(this.map)
+        //
+        // }
 
-          const marker = new window.mapboxgl.Marker(el)
-          .setLngLat([response[i].longitude, response[i].latitude])
-          // .setPopup(popup)
-          .addTo(this.map)
-
-        }
-        // addPoint(response){
-        //   this.setState({
-        //     addMark: [response]
-        //   })
+          this.setState({
+            addMark: response,
+          })
 
         // }
         // for (let i = 0; i < response.length; i++) {
@@ -95,10 +95,9 @@ class Map extends Component {
 
 //get the users current location
 getCurrent(){
-
   //Wait for the coordinates to update, and once they do, display the icon
     let curr = document.createElement('div');//create div for the marker
-    curr.className = 'marker';
+    curr.className = 'currentPos';
     //set the coordinates for the marker and add it to the map
     const current = new window.mapboxgl.Marker(curr)
       .setLngLat([this.state.lng, this.state.lat])
@@ -111,27 +110,24 @@ componentWillUpdate(){
 }
 
   render(){
-
-    //get the users current location
-    // if (this.state.lat !== null){
-    //   this.getCurrent()
-    // }
-
-
-    console.log(this.state.addMark)
+    let details= this.state.addMark
 
     for (let i = 0; i < this.state.addMark.length; i++) {
+
       let el = document.createElement('div');
       el.className = 'marker';
 
+      //create a custom popup for each individual item
+      let popup = new window.mapboxgl.Popup({ offset: 25 })
+        .setHTML('<h3>' + details[i].description + '</h3><p>' + details[i].eventStart + '-' + details[i].eventEnd + '</p><button>' + '&#128077;' + '</button><span> : ' +details[i].likes.length + '<span>'
+        );
+
+      //create a marker
       const marker = new window.mapboxgl.Marker(el)
-      .setLngLat([this.state.addMark[i].longitude, this.state.addMark[i].latitude])
-      // .setPopup(popup)
-      .addTo(this.map);
+        .setLngLat([this.state.addMark[i].longitude, this.state.addMark[i].latitude])
+        .setPopup(popup)
+        .addTo(this.map);
     }
-
-    console.log(this.state.lat, this.state.lng)
-
 
     return(
         <div id='map' className='mapStyle'>
