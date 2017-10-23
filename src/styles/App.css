@@ -121,6 +121,14 @@
 }
 
 /*marker styles*/
+.currentPos{
+  background-image: url('https://d30y9cdsu7xlg0.cloudfront.net/png/8205-200.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
 .marker {
   background-image: url('sport-material.png');
   background-size: cover;
@@ -156,6 +164,7 @@
   border-radius: 50%;
   cursor: pointer;
 }
+
 
 .marker5 {
   background-image: url('mapbox-icon.png');

@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 
+//import from redux
+import { connect } from 'react-redux';
+
+//import components
 import LocationResult from './LocationResult';
+
+//import actions
+import { displayEvents } from '../actions';
 class EventForm extends Component{
   constructor(props){
     super(props)
@@ -97,15 +104,9 @@ updateLocation(locInfo){
         lng: locInfo.center[0],
       }
     },
-    searchResults: null,
-  }), ()=>{
-    this.setState({
-        searchResults: null, //location fetch results
-    })
-  }
-  //callback. after we store the info, make the search results null so that we do not have to see the dropdown box anymore
-
-  console.log(this.state)
+    searchResults: null,//location fetch results
+  })
+  //callback. after we store the info, make the search results turn null so that we do not have to see the dropdown box anymore
 }
 
 handleLocation(ev){
@@ -139,7 +140,7 @@ handleLocation(ev){
 }
 
 //when the form is submitted,
-handleAdd(description, category, start, stop, location){
+handleAdd(){
     console.log(this.state.event)
     let details = this.state.event //shortened for ease of use below
 
@@ -162,6 +163,8 @@ handleAdd(description, category, start, stop, location){
        //TODO: dispatch the display action
        console.log('made it to the toggle portion')
        this.props.toggleForm()
+    }).then(() => {
+      this.props.display()
     })
 
 }
@@ -207,4 +210,16 @@ handleAdd(description, category, start, stop, location){
   }
 }
 
-export default EventForm;
+function mapDispatch2Props(dispatch){
+  return{
+    display: function(){
+      fetch("https://vamp-app.herokuapp.com/events")
+        .then(resp => resp.json())
+        .then( resp =>
+             dispatch(displayEvents(resp))
+        )
+    }
+  }
+}
+
+export default connect(null, mapDispatch2Props) (EventForm);
