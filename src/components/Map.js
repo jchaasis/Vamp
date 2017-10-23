@@ -92,7 +92,7 @@ class Map extends Component {
           this.setState({
             addMark: response,
           })
-  
+
 
     });
 }
@@ -150,11 +150,7 @@ componentWillUpdate(){
     return(
         <div id='map' className='mapStyle'>
 
-<<<<<<< HEAD
-=======
-        <div id='map' className='mapStyle' ref={el => this.map = el}>
-         
->>>>>>> points
+
         </div>
     )
   }
