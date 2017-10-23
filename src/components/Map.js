@@ -22,7 +22,7 @@ class Map extends Component {
     })
   }
 
-  //get our currenc location and watch to see if it updates
+  //get our current location and watch to see if it updates
   getLocation(){
 
     let current = navigator.geolocation.watchPosition(position => {
@@ -64,22 +64,9 @@ class Map extends Component {
     fetch("https://vamp-app.herokuapp.com/events")
       .then(resp => resp.json())
       .then(response => {
-        console.log(response)
-        // addPoint(response){
-        //   this.setState({
-        //     addMark: [response]
-        //   })
-  
-        // }
-        // for (let i = 0; i < response.length; i++) {
-        //   let el = document.createElement('div');
-        //   el.className = 'marker';
-  
-        //   const marker = new window.mapboxgl.Marker(el)
-        //   .setLngLat([response[i].longitude, response[i].latitude])
-        //   // .setPopup(popup)
-        //   .addTo(this.map);
-        // }
+          this.setState({
+            addMark: response,
+          })
   
 
     });
@@ -94,7 +81,21 @@ class Map extends Component {
 
     for (let i = 0; i < this.state.addMark.length; i++) {
       let el = document.createElement('div');
-      el.className = 'marker';
+      el.classList.add('shine');
+
+      let newMark = this.state.addMark[i]
+
+      if (newMark.category === "Sports/Outdoors") {
+        el.classList.add('marker')
+      } else if (newMark.category === "Community") {
+        el.classList.add('marker4')
+      } else if (newMark.category === "Food/Bev") {
+        el.classList.add('marker3')
+      } else if (newMark.category === "Music/Arts") {
+        el.classList.add('marker2')
+      } else if (newMark.category === "") {
+        el.classList.add('marker5')
+      }
 
       const marker = new window.mapboxgl.Marker(el)
       .setLngLat([this.state.addMark[i].longitude, this.state.addMark[i].latitude])
@@ -108,7 +109,6 @@ class Map extends Component {
     return(
 
         <div id='map' className='mapStyle' ref={el => this.map = el}>
-          {/* <div className='marker' ref={el => this.map = el}></div> */}
          
         </div>
 
