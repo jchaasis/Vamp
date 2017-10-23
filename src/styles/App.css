@@ -156,3 +156,38 @@
   border-radius: 50%;
   cursor: pointer;
 }
+
+.marker5 {
+  background-image: url('mapbox-icon.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+.shine {
+  animation-name: shineEffect;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+/* Create an animation called 'shineEffect' */
+@keyframes shineEffect {
+0% {
+/* transform: scale(0.9); */
+width: 50px;
+height: 50px;
+}
+
+50% {
+width: 75px;
+height: 75px;
+}
+
+100% {
+width: 50px;
+height: 50px;
+}
+}

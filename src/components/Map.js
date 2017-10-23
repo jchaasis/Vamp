@@ -89,6 +89,10 @@ class Map extends Component {
         //   .addTo(this.map);
         // }
 
+          this.setState({
+            addMark: response,
+          })
+  
 
     });
 }
@@ -122,7 +126,21 @@ componentWillUpdate(){
 
     for (let i = 0; i < this.state.addMark.length; i++) {
       let el = document.createElement('div');
-      el.className = 'marker';
+      el.classList.add('shine');
+
+      let newMark = this.state.addMark[i]
+
+      if (newMark.category === "Sports/Outdoors") {
+        el.classList.add('marker')
+      } else if (newMark.category === "Community") {
+        el.classList.add('marker4')
+      } else if (newMark.category === "Food/Bev") {
+        el.classList.add('marker3')
+      } else if (newMark.category === "Music/Arts") {
+        el.classList.add('marker2')
+      } else if (newMark.category === "") {
+        el.classList.add('marker5')
+      }
 
       const marker = new window.mapboxgl.Marker(el)
       .setLngLat([this.state.addMark[i].longitude, this.state.addMark[i].latitude])
@@ -136,6 +154,11 @@ componentWillUpdate(){
     return(
         <div id='map' className='mapStyle'>
 
+<<<<<<< HEAD
+=======
+        <div id='map' className='mapStyle' ref={el => this.map = el}>
+         
+>>>>>>> points
         </div>
     )
   }
