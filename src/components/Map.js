@@ -77,7 +77,6 @@ class Map extends Component {
     // this.getLocation();
 }
 
-
 //function to be called that will create points and markers for each event
 plotPoints(){
   //loop through the stored events
