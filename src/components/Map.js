@@ -39,28 +39,24 @@ class Map extends Component {
 
   componentWillMount(){
     this.getLocation();
-    // this.props.getCurrentLoc()
+
+    // // this.props.getCurrentLoc()
+    // window.mapboxgl.accessToken = 'pk.eyJ1IjoidmFtcGxpZmUiLCJhIjoiY2o4bHM5YmxpMHIxcjJwanNjdzZnb3ZqdSJ9.vIPUzwa3sv1H3X0CfSbchg';
+    // //map details
+    // this.map = new window.mapboxgl.Map({
+    //     container: 'map',
+    //     center:[this.state.lng, this.state.lat],
+    //     style: 'mapbox://styles/vamplife/cj8om9bgf8tm92ro2i66lz2uh',
+    //     positionOptions: {
+    //         enableHighAccuracy: true
+    //     },
+    //       trackUserLocation: true
+    // });
 
   }
 
-  // establishMap(){
-  //   //access Token for map
-  //   window.mapboxgl.accessToken = 'pk.eyJ1IjoidmFtcGxpZmUiLCJhIjoiY2o4bHM5YmxpMHIxcjJwanNjdzZnb3ZqdSJ9.vIPUzwa3sv1H3X0CfSbchg';
-  //   //map details
-  //   this.map = new window.mapboxgl.Map({
-  //       container: 'map',
-  //       center:[this.state.lng, this.state.lat],
-  //       style: 'mapbox://styles/vamplife/cj8om9bgf8tm92ro2i66lz2uh',
-  //       positionOptions: {
-  //           enableHighAccuracy: true
-  //       },
-  //         trackUserLocation: true
-  //   });
-  //
-  // }
-
-  componentDidMount(){
-    // access Token for map
+  establishMap(){
+    //access Token for map
     window.mapboxgl.accessToken = 'pk.eyJ1IjoidmFtcGxpZmUiLCJhIjoiY2o4bHM5YmxpMHIxcjJwanNjdzZnb3ZqdSJ9.vIPUzwa3sv1H3X0CfSbchg';
     //map details
     this.map = new window.mapboxgl.Map({
@@ -73,8 +69,26 @@ class Map extends Component {
           trackUserLocation: true
     });
 
-    this.plotPoints()
-    // this.getLocation();
+  }
+
+  componentDidMount(){
+
+    // // access Token for map
+    // window.mapboxgl.accessToken = 'pk.eyJ1IjoidmFtcGxpZmUiLCJhIjoiY2o4bHM5YmxpMHIxcjJwanNjdzZnb3ZqdSJ9.vIPUzwa3sv1H3X0CfSbchg';
+    // //map details
+    // this.map = new window.mapboxgl.Map({
+    //     container: 'map',
+    //     center:[this.state.lng, this.state.lat],
+    //     style: 'mapbox://styles/vamplife/cj8om9bgf8tm92ro2i66lz2uh',
+    //     positionOptions: {
+    //         enableHighAccuracy: true
+    //     },
+    //       trackUserLocation: true
+    // });
+    this.establishMap();
+    this.plotPoints();
+
+
 }
 
 //function to be called that will create points and markers for each event
@@ -120,13 +134,20 @@ handleLike(){
 
 //get the users current location
 getCurrent(){
+  let curr;
   // console.log(this.props.location)TODO: come back to this
 
-  let updateCurrent = document.getElementsByClassName('currentPos');
+  let updateCurrent = document.querySelectorAll('.currentPos');
+    // updateCurrent.remove();
+
+    updateCurrent.forEach(el=> el.remove())
+
+
+
 
   console.log(updateCurrent);
   //Wait for the coordinates to update, and once they do, display the icon
-    let curr = document.createElement('div');//create div for the marker
+    curr = document.createElement('div');//create div for the marker
     curr.className = 'currentPos';
     //set the coordinates for the marker and add it to the map
     const current = new window.mapboxgl.Marker(curr)
@@ -134,26 +155,27 @@ getCurrent(){
       .addTo(this.map)
 }
 // // //
-// componentWillUpdate(){
-//
-//   if (this.props.location.lng !== null){
-//     this.getCurrent();
-//   }
-//
-// }
+componentWillUpdate(){
+
+  // if (this.props.location.lng !== null){
+  //   this.getCurrent();
+  // }
+}
+
 removeCurr(){
-  let current = document.getElementsByClassName('currentPos');
-    // current.parentNode.removeChild(current);
-    current.remove()
+  // let current = document.getElementsByClassName('currentPos');
+  //   // current.parentNode.removeChild(current);
+  //   current.remove()
 }
 
 componentWillReceiveProps(nextProps){
-
+  this.plotPoints()
 
   console.log(nextProps.events.length)
   console.log(this.props.events.length)
-
-  if (nextProps.events.length > this.props.events.length){
+  if (nextProps.events.length !== this.props.events.length)
+  // if (nextProps.events.length > this.props.events.length)
+  {
     this.plotPoints()
   }
 // this.plotPoints();
