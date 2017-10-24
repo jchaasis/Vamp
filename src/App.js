@@ -36,14 +36,14 @@ class App extends Component {
   }
 
   handleLike(){
-    fetch("https://vamp-app.herokuapp.com/add-likes/1", {
+    fetch("https://vamp-app.herokuapp.com/add-likes/2", {
              method: 'POST',
              headers: {
                  'Accept': 'application/json',
                  'Content-Type': 'application/json',
              },
              body: JSON.stringify({
-                    
+
              }),
     })
   }

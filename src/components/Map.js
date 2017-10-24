@@ -41,18 +41,6 @@ class Map extends Component {
     this.getLocation();
 
     // // this.props.getCurrentLoc()
-    // window.mapboxgl.accessToken = 'pk.eyJ1IjoidmFtcGxpZmUiLCJhIjoiY2o4bHM5YmxpMHIxcjJwanNjdzZnb3ZqdSJ9.vIPUzwa3sv1H3X0CfSbchg';
-    // //map details
-    // this.map = new window.mapboxgl.Map({
-    //     container: 'map',
-    //     center:[this.state.lng, this.state.lat],
-    //     style: 'mapbox://styles/vamplife/cj8om9bgf8tm92ro2i66lz2uh',
-    //     positionOptions: {
-    //         enableHighAccuracy: true
-    //     },
-    //       trackUserLocation: true
-    // });
-
   }
 
   establishMap(){
@@ -73,18 +61,6 @@ class Map extends Component {
 
   componentDidMount(){
 
-    // // access Token for map
-    // window.mapboxgl.accessToken = 'pk.eyJ1IjoidmFtcGxpZmUiLCJhIjoiY2o4bHM5YmxpMHIxcjJwanNjdzZnb3ZqdSJ9.vIPUzwa3sv1H3X0CfSbchg';
-    // //map details
-    // this.map = new window.mapboxgl.Map({
-    //     container: 'map',
-    //     center:[this.state.lng, this.state.lat],
-    //     style: 'mapbox://styles/vamplife/cj8om9bgf8tm92ro2i66lz2uh',
-    //     positionOptions: {
-    //         enableHighAccuracy: true
-    //     },
-    //       trackUserLocation: true
-    // });
     this.establishMap();
     this.plotPoints();
 
@@ -93,12 +69,18 @@ class Map extends Component {
 
 //function to be called that will create points and markers for each event
 plotPoints(){
+
+  let allPoints = document.querySelectorAll('.eventMarker')
+
+    allPoints.forEach(point => point.remove())
+
   //loop through the stored events
   for (let i = 0; i < this.props.events.length; i++) {
 
     //create a div for the marker
     let el = document.createElement('div');
     el.classList.add('shine');
+    el.classList.add('eventMarker');
 
     let newMark = this.props.events[i] //shortened for use for below
 
@@ -134,7 +116,7 @@ handleLike(){
 
 //get the users current location
 getCurrent(){
-  let curr;
+
   // console.log(this.props.location)TODO: come back to this
 
   let updateCurrent = document.querySelectorAll('.currentPos');
@@ -143,11 +125,9 @@ getCurrent(){
     updateCurrent.forEach(el=> el.remove())
 
 
-
-
   console.log(updateCurrent);
   //Wait for the coordinates to update, and once they do, display the icon
-    curr = document.createElement('div');//create div for the marker
+    let curr = document.createElement('div');//create div for the marker
     curr.className = 'currentPos';
     //set the coordinates for the marker and add it to the map
     const current = new window.mapboxgl.Marker(curr)
