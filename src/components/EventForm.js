@@ -89,7 +89,7 @@ handleStop(ev){
    //TODO: clean up the results of the geocoding so that they show only relevant results
 
 updateLocation(locInfo){
-  console.log(locInfo)
+
   this.setState({
     location_text: locInfo.place_name,
 
@@ -115,7 +115,7 @@ handleLocation(ev){
   //fetch matching results as a user types in a location.
   fetch(url)
     .then(resp => resp.json()) //parse the json
-    .then(resp => { console.log(resp.features)
+    .then(resp => {
       this.setState({   //store the results in local state
       searchResults: resp.features ? resp.features : [], //if there is a result, push the result to the
       })
@@ -136,10 +136,10 @@ handleLocation(ev){
     //     }
     //   }
     // })
-    console.log(this.state)
+
 }
 
-//when the form is submitted,
+// when the form is submitted,
 handleAdd(){
     console.log(this.state.event)
     let details = this.state.event //shortened for ease of use below
@@ -161,7 +161,7 @@ handleAdd(){
              }),
     }).then(()=>{
        //TODO: dispatch the display action
-       console.log('made it to the toggle portion')
+
        this.props.toggleForm()
     }).then(() => {
       this.props.display()

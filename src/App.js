@@ -6,7 +6,7 @@ import './styles/App.css';
 import { connect } from 'react-redux'
 
 //import actions
-import { displayEvents } from './actions';
+import { displayEvents, getCurrentLoc } from './actions';
 
 //import components
 import EventForm from './components/EventForm';
@@ -25,12 +25,26 @@ class App extends Component {
   //get the available events when the app loads
   componentDidMount(){
     this.props.display()
+    this.props.getCurrentLoc();
   }
 
   //when the add event button, exit button, or add button is clicked, toggle the addEvent state, either displaying the event form or hiding the event form.
   toggleEventForm(){
     this.setState({
       addEvent: !this.state.addEvent,
+    })
+  }
+
+  handleLike(){
+    fetch("https://vamp-app.herokuapp.com/add-likes/1", {
+             method: 'POST',
+             headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json',
+             },
+             body: JSON.stringify({
+                    
+             }),
     })
   }
 
@@ -42,6 +56,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Vamp</h1>
+          <button onClick={()=>this.handleLike()}> Like </button>
         </header>
         <main className="main">
           <NavBar toggleForm={()=>this.toggleEventForm()}/>
@@ -64,6 +79,14 @@ function mapDispatch2Props(dispatch){
         .then( resp =>
              dispatch(displayEvents(resp))
         )
+      },
+      getCurrentLoc: function(){
+      navigator.geolocation.watchPosition(position => {
+          dispatch(getCurrentLoc({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          }))
+        })
       }
   }
 }
