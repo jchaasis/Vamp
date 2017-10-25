@@ -56,7 +56,8 @@ class Map extends Component {
         },
           trackUserLocation: true
     });
-
+    //zoom in, zoom out, and compass control
+    this.map.addControl(new window.mapboxgl.NavigationControl());
   }
 
   componentDidMount(){
@@ -158,8 +159,8 @@ componentWillUpdate(){
 componentWillReceiveProps(nextProps){
   this.plotPoints()
 
-  console.log(nextProps.events.length)
-  console.log(this.props.events.length)
+  // console.log(nextProps.events.length)
+  // console.log(this.props.events.length)
   if (nextProps.events.length !== this.props.events.length)
   // if (nextProps.events.length > this.props.events.length)
   {
