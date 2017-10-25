@@ -22,6 +22,7 @@ class App extends Component {
       addEvent: false,
     }
   }
+
   //get the available events when the app loads
   componentDidMount(){
     this.props.display()
@@ -35,19 +36,6 @@ class App extends Component {
     })
   }
 
-  handleLike(){
-    fetch("https://vamp-app.herokuapp.com/add-likes/2", {
-             method: 'POST',
-             headers: {
-                 'Accept': 'application/json',
-                 'Content-Type': 'application/json',
-             },
-             body: JSON.stringify({
-
-             }),
-    })
-  }
-
   render() {
     //when the "Add event button is clicked, show the event form". pass the toggleEventForm function down to the form so that the exit and add buttons can use it to close the form.
     let addEvent = this.state.addEvent ? <EventForm toggleForm={() => this.toggleEventForm()}/> : null;
@@ -56,7 +44,6 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Vamp</h1>
-          <button onClick={()=>this.handleLike()}> Like </button>
         </header>
         <main className="main">
           <NavBar toggleForm={()=>this.toggleEventForm()}/>

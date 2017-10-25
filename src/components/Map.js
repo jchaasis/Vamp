@@ -101,9 +101,7 @@ plotPoints(){
 
     // Get the button inside of this popup. Add an event listener
     // that calls the handleLike() function.
-    console.log('adding event listener');
     const button = popup._content.querySelector('button.like');
-    console.log(button);
     button.addEventListener('click', () => {
       this.handleLike(newMark);
     });
@@ -115,12 +113,20 @@ plotPoints(){
       .addTo(this.map);
   }
 
-  // console.log(likeButt)
 }
-
+//handle the liking of an event
 handleLike(event){
-  console.log('liked')
-  console.log(event);
+  //send the post request
+  fetch(`https://vamp-app.herokuapp.com/add-likes/${event.id}`, {
+           method: 'POST',
+           headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json',
+           },
+           body: JSON.stringify({
+
+           }),
+  })
 }
 
 //get the users current location
@@ -183,7 +189,6 @@ convertTime(time){
   //return the final result
   return(splitTime.join(':') + meridies)
 }
-
   render(){
 
     return(
