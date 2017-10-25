@@ -79,10 +79,14 @@ plotPoints(){
 
     //create a div for the marker
     let el = document.createElement('div');
-    el.classList.add('shine');
+    // el.classList.add('shine');
     el.classList.add('eventMarker');
 
     let newMark = this.props.events[i] //shortened for use for below
+
+    if (newMark.likes.length >= 20) {
+      el.classList.add('shine')
+    }
 
     //give the events a marker that matches their category
     if (newMark.category === "Sports/Outdoors") {
@@ -95,7 +99,7 @@ plotPoints(){
       el.classList.add('marker2')
     } else if (newMark.category === "") {
       el.classList.add('marker5')
-    }
+    } 
 
     // create a custom popup for each individual item
     let popup = new window.mapboxgl.Popup({ offset: 25 })
