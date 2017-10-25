@@ -40,6 +40,9 @@ class App extends Component {
     //when the "Add event button is clicked, show the event form". pass the toggleEventForm function down to the form so that the exit and add buttons can use it to close the form.
     let addEvent = this.state.addEvent ? <EventForm toggleForm={() => this.toggleEventForm()}/> : null;
 
+    //get the current time so we can use it to compare with the end times of the events and show only active
+    let d = new Date()
+    console.log(d.getHours(), d.getMinutes())
     return (
       <div className="App">
         <header className="App-header">
