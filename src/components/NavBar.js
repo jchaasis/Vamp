@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Filter from './Filter'
+import Filter from './filter/Filter'
 
 import Legend from './Legend';
 
@@ -12,6 +12,7 @@ class NavBar extends Component{
 
     this.state = {
       visible: false,
+      filter: false,
     }
   }
 
@@ -27,7 +28,17 @@ class NavBar extends Component{
     this.props.toggleForm()
   }
 
+  toggleFilter(){
+    this.setState({
+      filter: true,
+    })
+    console.log('filter open')
+  }
+
   render(){
+    //when the filter button is clicked, display the filter options
+    let filterEvents = this.state.filter ? <Filter /> : null;
+
 
     if (this.state.visible === false){
       return(
@@ -55,10 +66,12 @@ class NavBar extends Component{
             &#8213;
             </div> </button>
             <button onClick={() => this.toggleEventForm()}> Add Event </button>
-            <button> filter </button>
+            <button onClick={()=>this.toggleFilter()}> filter </button>
+            {filterEvents}
 
-            <Legend />
-          
+        {   //<Legend />
+        }
+
           </div>
       )
     }

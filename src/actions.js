@@ -11,3 +11,10 @@ export function getCurrentLoc(location){
     payload: location
   }
 }
+
+export function filterCategory(category){
+  return{
+    type: 'FILTER',
+    payload: category,
+  }
+}

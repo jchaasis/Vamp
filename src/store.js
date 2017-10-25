@@ -6,6 +6,8 @@ function reducer(state, action){
   if (action.type === 'DISPLAY'){
     return{
       events: action.payload,
+      location: state.location,
+      filter: state.filter,
     }
   }
 
@@ -13,9 +15,19 @@ function reducer(state, action){
     console.log(action.payload)
     return{
       events: state.events,
-      location: action.payload
+      location: action.payload,
+      filter: state.filter,
+
     }
 
+  }
+
+  if (action.type === 'FILTER'){
+    return{
+      events: state.events,
+      location: state.locations,
+      filter: action.payload,
+    }
   }
 
   return state;
@@ -24,6 +36,7 @@ function reducer(state, action){
 export default createStore(reducer, {
   events: [],
   location: null,
+  filter: undefined,
 
 },
 window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

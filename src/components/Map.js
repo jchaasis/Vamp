@@ -67,13 +67,15 @@ class Map extends Component {
 
 //function to be called that will create points and markers for each event
 plotPoints(){
+  let availableEvents = this.props.events;
+
   //find all the points that are currently on the map which have the class 'eventMarker'
   let allPoints = document.querySelectorAll('.eventMarker')
     //remove each of these points before re adding them
     allPoints.forEach(point => point.remove())
 
   //loop through the stored events
-  for (let i = 0; i < this.props.events.length; i++) {
+  for (let i = 0; i < availableEvents.length; i++) {
 
     //create a div for the marker
     let el = document.createElement('div');
@@ -105,7 +107,7 @@ plotPoints(){
       el.classList.add('marker2')
     } else if (newMark.category === "") {
       el.classList.add('marker5')
-    } 
+    }
 
     // create a custom popup for each individual item
     let popup = new window.mapboxgl.Popup({ offset: 25 })
