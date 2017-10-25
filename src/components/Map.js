@@ -190,6 +190,7 @@ convertTime(time){
   //return the final result
   return(splitTime.join(':') + meridies)
 }
+
   render(){
 
     return(
@@ -212,6 +213,8 @@ function mapDispatch2Props(dispatch){
       fetch("https://vamp-app.herokuapp.com/events")
         .then(resp => resp.json())
         .then( resp =>
+
+
              dispatch(displayEvents(resp))
         )
     },
