@@ -89,6 +89,10 @@ plotPoints(){
       el.classList.add('shine')
     }
 
+    if (newMark.likes.length >= 20) {
+      el.classList.add('shine')
+    }
+
     //give the events a marker that matches their category
     if (newMark.category === "Sports/Outdoors") {
       el.classList.add('marker')
