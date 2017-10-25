@@ -56,7 +56,8 @@ class Map extends Component {
         },
           trackUserLocation: true
     });
-
+    //zoom in, zoom out, and compass control
+    this.map.addControl(new window.mapboxgl.NavigationControl());
   }
 
   componentDidMount(){
@@ -170,8 +171,8 @@ componentWillUpdate(){
 componentWillReceiveProps(nextProps){
   this.plotPoints()
 
-  console.log(nextProps.events.length)
-  console.log(this.props.events.length)
+  // console.log(nextProps.events.length)
+  // console.log(this.props.events.length)
   if (nextProps.events.length !== this.props.events.length)
   // if (nextProps.events.length > this.props.events.length)
   {
@@ -201,6 +202,7 @@ convertTime(time){
   //return the final result
   return(splitTime.join(':') + meridies)
 }
+
   render(){
 
     return(
@@ -223,6 +225,8 @@ function mapDispatch2Props(dispatch){
       fetch("https://vamp-app.herokuapp.com/events")
         .then(resp => resp.json())
         .then( resp =>
+
+
              dispatch(displayEvents(resp))
         )
     },
