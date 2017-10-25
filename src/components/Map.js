@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Marker from './Marker';
+import Popup from './Popup';
 
 //import from redux
 import { connect } from 'react-redux';
@@ -39,7 +40,6 @@ class Map extends Component {
 
   componentWillMount(){
     this.getLocation();
-
     // // this.props.getCurrentLoc()
   }
 
@@ -60,18 +60,15 @@ class Map extends Component {
   }
 
   componentDidMount(){
-
+    //load the map once the component mounts
     this.establishMap();
-    this.plotPoints();
-
-
-}
+  }
 
 //function to be called that will create points and markers for each event
 plotPoints(){
-
+  //find all the points that are currently on the map which have the class 'eventMarker'
   let allPoints = document.querySelectorAll('.eventMarker')
-
+    //remove each of these points before re adding them
     allPoints.forEach(point => point.remove())
 
   //loop through the stored events
@@ -82,7 +79,7 @@ plotPoints(){
     el.classList.add('shine');
     el.classList.add('eventMarker');
 
-    let newMark = this.props.events[i] //shortened for use for below
+    let newMark = this.props.events[i] //shortened for use below
 
     //give the events a marker that matches their category
     if (newMark.category === "Sports/Outdoors") {
@@ -99,8 +96,17 @@ plotPoints(){
 
     // create a custom popup for each individual item
     let popup = new window.mapboxgl.Popup({ offset: 25 })
-          .setHTML(`<h3> ${newMark.description} </h3><p> ${this.convertTime(newMark.eventStart)} - ${this.convertTime(newMark.eventEnd)} </p><button className="like" onClick={${()=>this.handleLike()}}>&#128077; </button><span> : ${newMark.likes.length}<span>`)
+          // .setHTML(<Popup/>)
+          .setHTML(`<div><h3> ${newMark.description} </h3><p> ${this.convertTime(newMark.eventStart)} - ${this.convertTime(newMark.eventEnd)} </p><button class="like">&#128077; </button><span> : ${newMark.likes.length}<span></div>`)
 
+    // Get the button inside of this popup. Add an event listener
+    // that calls the handleLike() function.
+    console.log('adding event listener');
+    const button = popup._content.querySelector('button.like');
+    console.log(button);
+    button.addEventListener('click', () => {
+      this.handleLike(newMark);
+    });
 
     //create a mapbox marker to be associate with the div created above
     const marker = new window.mapboxgl.Marker(el)
@@ -108,10 +114,13 @@ plotPoints(){
       .setPopup(popup)
       .addTo(this.map);
   }
+
+  // console.log(likeButt)
 }
 
-handleLike(){
+handleLike(event){
   console.log('liked')
+  console.log(event);
 }
 
 //get the users current location
@@ -119,14 +128,12 @@ getCurrent(){
 
   // console.log(this.props.location)TODO: come back to this
 
+  //select all divs with the currentPos classname
   let updateCurrent = document.querySelectorAll('.currentPos');
-    // updateCurrent.remove();
-
+    // delete those divs before adding the newest one
     updateCurrent.forEach(el=> el.remove())
 
-
-  console.log(updateCurrent);
-  //Wait for the coordinates to update, and once they do, display the icon
+  //create a div for the current position marker
     let curr = document.createElement('div');//create div for the marker
     curr.className = 'currentPos';
     //set the coordinates for the marker and add it to the map
@@ -134,18 +141,12 @@ getCurrent(){
       .setLngLat([this.state.lng, this.state.lat])
       .addTo(this.map)
 }
-// // //
+//
 componentWillUpdate(){
 
   // if (this.props.location.lng !== null){
   //   this.getCurrent();
   // }
-}
-
-removeCurr(){
-  // let current = document.getElementsByClassName('currentPos');
-  //   // current.parentNode.removeChild(current);
-  //   current.remove()
 }
 
 componentWillReceiveProps(nextProps){
@@ -160,7 +161,6 @@ componentWillReceiveProps(nextProps){
   }
 // this.plotPoints();
 }
-
 
 //convert the time into am/pm format.
 convertTime(time){
@@ -186,43 +186,8 @@ convertTime(time){
 
   render(){
 
-    //loop through the events and create a marker for each one
-    // for (let i = 0; i < this.props.events.length; i++) {
-    //
-    //   //create a div for the marker
-    //   let el = document.createElement('div');
-    //   el.classList.add('shine');
-    //
-    //   let newMark = this.props.events[i] //shortened for use for below
-    //
-    //   //give the events a marker that matches their category
-    //   if (newMark.category === "Sports/Outdoors") {
-    //     el.classList.add('marker')
-    //   } else if (newMark.category === "Community") {
-    //     el.classList.add('marker4')
-    //   } else if (newMark.category === "Food/Bev") {
-    //     el.classList.add('marker3')
-    //   } else if (newMark.category === "Music/Art") {
-    //     el.classList.add('marker2')
-    //   } else if (newMark.category === "") {
-    //     el.classList.add('marker5')
-    //   }
-    //
-    //   // create a custom popup for each individual item
-    //   let popup = new window.mapboxgl.Popup({ offset: 25 })
-    //         .setHTML(`<h3> ${newMark.description} </h3><p> ${this.convertTime(newMark.eventStart)} - ${this.convertTime(newMark.eventEnd)} </p><button className="like" onClick={${()=>this.handleLike()}}>&#128077; </button><span> : ${newMark.likes.length}<span>`)
-    //
-    //
-    //   //create a mapbox marker to be associate with the div created above
-    //   const marker = new window.mapboxgl.Marker(el)
-    //     .setLngLat([newMark.longitude, newMark.latitude])
-    //     .setPopup(popup)
-    //     .addTo(this.map);
-    // }
-
     return(
         <div id='map' className='mapStyle'>
-
         </div>
     )
   }
