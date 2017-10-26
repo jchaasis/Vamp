@@ -35,7 +35,7 @@ function reducer(state, action){
 export default createStore(reducer, {
   events: [],
   location: null,
-  filter: undefined,
+  filter: 'Show All',
 
 },
 window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

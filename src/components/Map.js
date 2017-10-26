@@ -79,7 +79,7 @@ plotPoints(){
   let availableEvents;
 
   //if the filter category in the store is undefined, display all events, if not filter the events and display only those matching the category
-  if (this.props.filter === undefined){
+  if (this.props.filter === 'Show All'){
     availableEvents = this.props.events
   } else {
     availableEvents = this.props.events.filter(event => event.category === this.props.filter)
