@@ -9,6 +9,9 @@ import { connect } from 'react-redux';
 //import actions
 import { displayEvents, getCurrentLoc } from '../actions';
 
+//import other functions
+import { sortTime } from '../util';
+
 class Map extends Component {
   constructor(props){
     super(props);
@@ -67,7 +70,16 @@ class Map extends Component {
 
 //function to be called that will create points and markers for each event
 plotPoints(){
-  let availableEvents = this.props.events;
+  let availableEvents;
+  //if the filter category in the store is undefined, search through all results, if not filter the results and display only those matching the category
+  if (this.props.filter === undefined){
+    availableEvents = this.props.events
+  } else {
+
+    availableEvents = this.props.events.filter(event => event.category === this.props.filter)
+    console.log(this.props.filter)
+    console.log(availableEvents)
+  }
 
   //find all the points that are currently on the map which have the class 'eventMarker'
   let allPoints = document.querySelectorAll('.eventMarker')
@@ -172,6 +184,13 @@ componentWillUpdate(){
 
 componentWillReceiveProps(nextProps){
   this.plotPoints()
+  console.log(this.props.filter)
+  console.log(nextProps.filter)
+
+  if (this.props.filter !== nextProps.filter){
+    this.plotPoints()
+  }
+  this.plotPoints()
 
   // console.log(nextProps.events.length)
   // console.log(this.props.events.length)
@@ -217,7 +236,8 @@ convertTime(time){
 function mapState2Props(state){
   return{
     events: state.events,
-    location: state.location
+    location: state.location,
+    filter: state.filter,
   }
 }
 
@@ -225,12 +245,9 @@ function mapDispatch2Props(dispatch){
   return{
     display: function(){
       fetch("https://vamp-app.herokuapp.com/events")
-        .then(resp => resp.json())
-        .then( resp =>
-
-
-             dispatch(displayEvents(resp))
-        )
+      .then(resp => resp.json())
+      .then (resp => sortTime(resp))
+      .then( resp => dispatch(displayEvents(resp)))
     },
   }
 }

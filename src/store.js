@@ -17,9 +17,7 @@ function reducer(state, action){
       events: state.events,
       location: action.payload,
       filter: state.filter,
-
     }
-
   }
 
   if (action.type === 'FILTER'){
