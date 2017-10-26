@@ -1,5 +1,6 @@
+//This file will be used to store functions that may be called in multiple files, or to store functions to shorten the code in other coponent files.
+
 export function sortTime(events){
-  console.log(events)
 
   //array to store the events that are availableEvents
   const sortedEvents = [];
@@ -10,7 +11,6 @@ export function sortTime(events){
   //store the current hr and minute to use for comparison
   let currHr = d.getHours()
   let currMin = d.getMinutes()
-  console.log(currHr, currMin)
 
   //iterate through the events endtimes.
   for (let i = 0; i < events.length; i++){
@@ -25,12 +25,19 @@ export function sortTime(events){
     //if the event end hr is greater than the current hr, it is an event that should show up on the map so push it to the events. If the event end hr is equal to the current hr and the event end min is greater than the current minute, it should also show up on the map.
     if (eventEndHr > currHr ){
       sortedEvents.push(events[i])
-    } else if (eventEndHr == currHr && eventEndMin > currMin){
+    } else if (eventEndHr === currHr && eventEndMin > currMin){
       sortedEvents.push(events[i])
     }
   }
 
-  console.log(sortedEvents)
   return(sortedEvents)
-  // let availableEvents = events.filter(event)
+}
+
+
+
+export function sortCategory(events){
+  //look to see if the state of the filter bar is clicked. If it is, get the value which is being used to filter and show only those events where the category matches.
+  let category;
+
+
 }

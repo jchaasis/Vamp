@@ -22,6 +22,7 @@ class App extends Component {
     super(props);
     this.state = {
       addEvent: false,
+
     }
   }
 
@@ -29,7 +30,7 @@ class App extends Component {
   componentDidMount(){
     this.props.display()
     this.props.getCurrentLoc();
-    // this.sortTime(['12:00:00', '14:00:00', '14:50:00', '16:00:00'])
+
   }
 
   //when the add event button, exit button, or add button is clicked, toggle the addEvent state, either displaying the event form or hiding the event form.
@@ -41,10 +42,8 @@ class App extends Component {
 
 
   render() {
-    //when the "Add event button is clicked, show the event form". pass the toggleEventForm function down to the form so that the exit and add buttons can use it to close the form.
+    //when the "Add event" button is clicked, show the event form. pass the toggleEventForm function down to the form so that the exit and add buttons can use it to close the form.
     let addEvent = this.state.addEvent ? <EventForm toggleForm={() => this.toggleEventForm()}/> : null;
-
-    //get the current time so we can use it to compare with the end times of the events and show only active
 
 
     return (
