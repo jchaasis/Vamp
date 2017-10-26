@@ -9,6 +9,9 @@ import { connect } from 'react-redux';
 //import actions
 import { displayEvents, getCurrentLoc } from '../actions';
 
+//import notifications
+import Notification from './Notification';
+
 class Map extends Component {
   constructor(props){
     super(props);
@@ -76,19 +79,11 @@ plotPoints(){
 
     //create a div for the marker
     let el = document.createElement('div');
-    // el.classList.add('shine');
     el.classList.add('eventMarker');
 
     let newMark = this.props.events[i] //shortened for use below
 
-    if (newMark.likes.length >= 20) {
-      el.classList.add('shine')
-    }
-
-    if (newMark.likes.length >= 20) {
-      el.classList.add('shine')
-    }
-
+    //add animation to correct markers
     if (newMark.likes.length >= 20) {
       el.classList.add('shine')
     }
@@ -143,6 +138,19 @@ handleLike(event){
 
 //get the users current location
 getCurrent(){
+  for (let i = 0; i < this.props.events.length; i++){
+    let isClose = this.props.events[i]
+
+    let a = isClose.latitude - this.state.lat
+    let b = isClose.longitude - this.state.lng
+        
+    let fence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))
+    console.log(fence)
+
+    if (fence <= 0.00137241985){
+      {Notification}
+    }
+  }
 
   // console.log(this.props.location)TODO: come back to this
 
