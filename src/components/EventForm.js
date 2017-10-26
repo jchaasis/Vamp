@@ -8,6 +8,10 @@ import LocationResult from './LocationResult';
 
 //import actions
 import { displayEvents } from '../actions';
+
+//import misc functions
+import { replaceTime } from '../util'
+
 class EventForm extends Component{
   constructor(props){
     super(props)
@@ -16,6 +20,7 @@ class EventForm extends Component{
     this.state = {
       location_text: '', // text that appears in the box
       //create event object to pass along
+      startDisp: '',
       event:{
         description: '',
         category:'',
@@ -70,6 +75,15 @@ handleStart(ev){
       location: this.state.event.location,
     }
   })
+}
+
+sliderStart(ev){
+
+  this.setState({
+    startDisp: (replaceTime(ev.target.value)),
+  })
+  console.log(this.state.startDisp)
+
 }
 
 //handle stop time
@@ -183,7 +197,11 @@ handleAdd(){
         <input type='text' className='formInput' placeholder='Description' onChange={ ev => this.handleDescription(ev)} maxLength='70'/>
 
         <br/>
-        <input type="range" multiple min="0" step="1" max="10" data-values="1 9"/>
+
+        <label> Start: </label> <p> {this.state.startDisp} </p>
+        <input type="range" multiple min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStart(ev)}/>
+        <br/>
+
         <label className='formLabel'>Category: </label>
         <select className='formInput' value={this.state.category} onChange={ev=> this.handleCategory(ev)}>
           <option value='Sports/Outdoors'> Sports/Outdoors </option>
@@ -193,6 +211,8 @@ handleAdd(){
         </select>
         <br/>
         <label className='formLabel'>Start: </label>
+        <input type="range" min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStart(ev)}/>
+        <br/>
         <input type='time' className='formInput' placeholder='start time' onChange={ev => this.handleStart(ev)}/>
         <br/>
         <label className='formLabel'>Stop: </label>

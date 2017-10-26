@@ -181,8 +181,6 @@ componentWillUpdate(){
 
 componentWillReceiveProps(nextProps){
   this.plotPoints()
-  console.log(this.props.filter)
-  console.log(nextProps.filter)
 
   // if (this.props.filter !== nextProps.filter){
   //   this.plotPoints()
