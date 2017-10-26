@@ -10,19 +10,19 @@ class Legend extends Component {
 
     render(){
             return(
-                <div>
+                <div className='legendSpace'>
                     <ul>
                         <h4>Sports/Outdoors</h4>
-                            <img src={sports} alt='' />
+                            <img className='reSize' src={sports} alt='' />
 
                         <h4>Music/Arts</h4>
-                            <img src={music} alt='' />
+                            <img className='reSize' src={music} alt='' />
 
                         <h4>Food/Bev</h4>
-                            <img src={food} alt='' />
+                            <img className='reSize' src={food} alt='' />
 
                         <h4>Community</h4>
-                            <img src={community} alt='' />
+                            <img className='reSize' src={community} alt='' />
 
                     </ul>
                 </div>
