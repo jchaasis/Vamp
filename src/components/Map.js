@@ -87,7 +87,6 @@ plotPoints(){
     console.log(availableEvents)
   }
 
-
   //loop through the stored events
   for (let i = 0; i < availableEvents.length; i++) {
 

@@ -26,7 +26,7 @@ class RadioGroup extends Component {
 
     this.props.filter(value);
 
-    console.log(this.props.category)
+    console.log(this.props.category);
     this.props.display()
   }
 
