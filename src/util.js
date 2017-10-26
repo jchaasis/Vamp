@@ -19,10 +19,12 @@ export function sortTime(events){
     let splitTimes = events[i].eventEnd.split(':');
 
     //shortened for comparison
-    let eventEndHr = splitTimes[0];
-    let eventEndMin = splitTimes[1];
+    let eventEndHr = parseInt(splitTimes[0]);
+    let eventEndMin = parseInt(splitTimes[1]);
 
     //if the event end hr is greater than the current hr, it is an event that should show up on the map so push it to the events. If the event end hr is equal to the current hr and the event end min is greater than the current minute, it should also show up on the map.
+
+
     if (eventEndHr > currHr ){
       sortedEvents.push(events[i])
     } else if (eventEndHr === currHr && eventEndMin > currMin){
@@ -32,7 +34,6 @@ export function sortTime(events){
 
   return(sortedEvents)
 }
-
 
 
 export function sortCategory(events){

@@ -70,21 +70,23 @@ class Map extends Component {
 
 //function to be called that will create points and markers for each event
 plotPoints(){
+  //find all the points that are currently on the map which have the class 'eventMarker'
+  let allPoints = document.querySelectorAll('.eventMarker')
+    //remove each of these points before re adding them
+    allPoints.forEach(point => point.remove())
+
+  //create variable to signify what group of events will be displayed
   let availableEvents;
-  //if the filter category in the store is undefined, search through all results, if not filter the results and display only those matching the category
+
+  //if the filter category in the store is undefined, display all events, if not filter the events and display only those matching the category
   if (this.props.filter === undefined){
     availableEvents = this.props.events
   } else {
-
     availableEvents = this.props.events.filter(event => event.category === this.props.filter)
     console.log(this.props.filter)
     console.log(availableEvents)
   }
 
-  //find all the points that are currently on the map which have the class 'eventMarker'
-  let allPoints = document.querySelectorAll('.eventMarker')
-    //remove each of these points before re adding them
-    allPoints.forEach(point => point.remove())
 
   //loop through the stored events
   for (let i = 0; i < availableEvents.length; i++) {
@@ -94,16 +96,9 @@ plotPoints(){
     // el.classList.add('shine');
     el.classList.add('eventMarker');
 
-    let newMark = this.props.events[i] //shortened for use below
+    let newMark = availableEvents[i] //shortened for use below
 
-    if (newMark.likes.length >= 20) {
-      el.classList.add('shine')
-    }
-
-    if (newMark.likes.length >= 20) {
-      el.classList.add('shine')
-    }
-
+    //add the pulse effect to events that are popular
     if (newMark.likes.length >= 20) {
       el.classList.add('shine')
     }
@@ -154,6 +149,9 @@ handleLike(event){
 
            }),
   })
+  .then(() => {
+    this.props.display()
+  })
 }
 
 //get the users current location
@@ -187,18 +185,18 @@ componentWillReceiveProps(nextProps){
   console.log(this.props.filter)
   console.log(nextProps.filter)
 
-  if (this.props.filter !== nextProps.filter){
-    this.plotPoints()
-  }
-  this.plotPoints()
+  // if (this.props.filter !== nextProps.filter){
+  //   this.plotPoints()
+  // }
+  // this.plotPoints()
 
   // console.log(nextProps.events.length)
   // console.log(this.props.events.length)
-  if (nextProps.events.length !== this.props.events.length)
-  // if (nextProps.events.length > this.props.events.length)
-  {
-    this.plotPoints()
-  }
+  // if (nextProps.events.length !== this.props.events.length)
+  // // if (nextProps.events.length > this.props.events.length)
+  // {
+  //   this.plotPoints()
+  // }
 // this.plotPoints();
 }
 

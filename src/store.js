@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 
 function reducer(state, action){
   console.log(action)
+  //if we are updating the list of available events
   if (action.type === 'DISPLAY'){
     return{
       events: action.payload,
@@ -10,7 +11,7 @@ function reducer(state, action){
       filter: state.filter,
     }
   }
-
+//if we are updating the current location
   if (action.type === 'CURRENT'){
     console.log(action.payload)
     return{
@@ -19,7 +20,7 @@ function reducer(state, action){
       filter: state.filter,
     }
   }
-
+//we are filtering the events
   if (action.type === 'FILTER'){
     return{
       events: state.events,
