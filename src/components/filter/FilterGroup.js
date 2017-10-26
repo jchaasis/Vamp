@@ -4,9 +4,12 @@ import React, { Component } from 'react';
 import FilterButton from './FilterButton';
 
 //import actions
-import { filterCategory } from '../../actions'
+import { filterCategory, displayEvents } from '../../actions'
 //import from redux
 import { connect } from 'react-redux'
+
+//import miscelaneous functions
+import { sortTime }from '../../util'
 
 
 class RadioGroup extends Component {
@@ -21,8 +24,10 @@ class RadioGroup extends Component {
   handleClick(value){
     //when a button is clicked, store the value that was clicked in redux so we can access it in the map
 
-    this.props.filter(value)
+    this.props.filter(value);
+
     console.log(this.props.category)
+    this.props.display()
   }
 
   render(){
@@ -49,7 +54,13 @@ function mapState2Props(state){
 
 function mapDispatch2Props(dispatch){
   return{
-    filter: category => dispatch(filterCategory(category))
+    filter: category => dispatch(filterCategory(category)),
+    display: function(){
+      fetch("https://vamp-app.herokuapp.com/events")
+      .then(resp => resp.json())
+      .then (resp => sortTime(resp))
+      .then( resp => dispatch(displayEvents(resp)))
+    },
   }
 }
 
