@@ -37,12 +37,15 @@ class Map extends Component {
   // }
   //
   //get our current location and watch to see if it updates
+
+
   getLocation(){
+    //get the coordinates or our current location and watch for a change.
     let current = navigator.geolocation.watchPosition(position => {
       this.setState({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-      },() => this.getCurrent())
+      },() => this.getCurrent()) //once we have the coordinates, plot the points
     })
   }
 
@@ -167,10 +170,10 @@ getCurrent(){
     let b = isClose.longitude - this.state.lng
 
     let fence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))
-    console.log(fence)
+    // console.log(fence)
 
     if (fence <= 0.00137241985 && isClose.likes.length >= 20){
-      console.log("HOT SPOT!")
+      // console.log("HOT SPOT!")
       window.Notification.requestPermission().then((permission)=>{
         let n = new window.Notification("L I T  Event Nearby!", {body: `${isClose.description}`, icon: `${flame}`});
       });
@@ -198,27 +201,12 @@ getCurrent(){
 
 componentWillUpdate(){
 
-  // if (this.props.location.lng !== null){
-  //   this.getCurrent();
-  // }
+
 }
 
 componentWillReceiveProps(nextProps){
-  this.plotPoints()
-
-  // if (this.props.filter !== nextProps.filter){
-  //   this.plotPoints()
-  // }
   // this.plotPoints()
 
-  // console.log(nextProps.events.length)
-  // console.log(this.props.events.length)
-  // if (nextProps.events.length !== this.props.events.length)
-  // // if (nextProps.events.length > this.props.events.length)
-  // {
-  //   this.plotPoints()
-  // }
-// this.plotPoints();
 }
 
 //convert the time into am/pm format.
@@ -244,6 +232,7 @@ convertTime(time){
 }
 
   render(){
+    this.plotPoints()
 
     return(
         <div id='map' className='mapStyle'>
