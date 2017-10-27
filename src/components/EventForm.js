@@ -10,7 +10,7 @@ import LocationResult from './LocationResult';
 import { displayEvents } from '../actions';
 
 //import misc functions
-import { replaceTime } from '../util'
+import { replaceTime, splitTime } from '../util'
 
 class EventForm extends Component{
   constructor(props){
@@ -21,6 +21,7 @@ class EventForm extends Component{
       location_text: '', // text that appears in the box
       //create event object to pass along
       startDisp: '',
+      stopDisp: '',
       event:{
         description: '',
         category:'',
@@ -64,6 +65,7 @@ handleCategory(ev){
     }
   })
 }
+
 //handle start time
 handleStart(ev){
   this.setState({
@@ -78,12 +80,39 @@ handleStart(ev){
 }
 
 sliderStart(ev){
-
+  //set store the time that will be used to display on the form
   this.setState({
     startDisp: (replaceTime(ev.target.value)),
   })
-  console.log(this.state.startDisp)
+  //store the value that will be sent to the backend upon form submission
+  this.setState({
+    event: {
+      description: this.state.event.description,
+      category: this.state.event.category,
+      start: splitTime(ev.target.value),
+      stop: this.state.event.stop,
+      location: this.state.event.location,
+    }
+  })
 
+}
+
+sliderStop(ev){
+  //store the time that will be displayed on the form
+  this.setState({
+    stopDisp: (replaceTime(ev.target.value)),
+  })
+
+  //store the time that will be sent to the backend upon form submission
+  this.setState({
+    event: {
+      description: this.state.event.description,
+      category: this.state.event.category,
+      start: this.state.event.start,
+      stop: splitTime(ev.target.value),
+      location: this.state.event.location,
+    }
+  })
 }
 
 //handle stop time
@@ -191,40 +220,45 @@ handleAdd(){
 
     return(
       <div className='eventForm'>
-      <button className="closeForm" onClick={() => this.props.toggleForm()}> X </button>
-        <label className='formLabel'>Description: </label>
+        <button className="closeForm" onClick={() => this.props.toggleForm()}> X </button>
 
-        <input type='text' className='formInput' placeholder='Description' onChange={ ev => this.handleDescription(ev)} maxLength='70'/>
+          <input type='text' className='formInput' placeholder='Description' onChange={ ev => this.handleDescription(ev)} maxLength='70'/>
 
-        <br/>
+          <br/>
 
-        <label> Start: </label> <p> {this.state.startDisp} </p>
-        <input type="range" multiple min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStart(ev)}/>
-        <br/>
+        
+          <select className='formInput' placeholder='category' value={this.state.category} onChange={ev=> this.handleCategory(ev)}>
+            <option value=''> Category </option>
+            <option value='Sports/Outdoors'> Sports/Outdoors </option>
+            <option value='Music/Art'> Music/Art </option>
+            <option value='Food/Bev'> Food/Bev </option>
+            <option value='Community'> Community </option>
+          </select>
 
-        <label className='formLabel'>Category: </label>
-        <select className='formInput' value={this.state.category} onChange={ev=> this.handleCategory(ev)}>
-          <option value='Sports/Outdoors'> Sports/Outdoors </option>
-          <option value='Music/Art'> Music/Art </option>
-          <option value='Food/Bev'> Food/Bev </option>
-          <option value='Community'> Community </option>
-        </select>
-        <br/>
-        <label className='formLabel'>Start: </label>
-        <input type="range" min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStart(ev)}/>
-        <br/>
-        <input type='time' className='formInput' placeholder='start time' onChange={ev => this.handleStart(ev)}/>
-        <br/>
-        <label className='formLabel'>Stop: </label>
-        <input type='time' className='formInput' onChange={ev => this.handleStop(ev)}/>
-        <br/>
-        <label className='formLabel'>Location: </label>
-        <input type='text' className='formInput' value={this.state.location_text} onChange={ev => this.handleLocation(ev)} />
-        <br/>
-        <ul className='searchResultsList'>
-          { results }
-        </ul>
-        <button onClick={()=> this.handleAdd()}> Add </button>
+          <br/>
+
+          <label className='formLabel'>Start: </label>
+          {this.state.startDisp}
+          <div>
+
+            <input type="range" min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStart(ev)}/>
+          </div>
+          <br/>
+          <label className='formLabel'>Stop: </label>
+          {this.state.stopDisp}
+          <div>
+
+            <input type="range" min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStop(ev)}/>
+          </div>
+
+          <br/>
+
+          <input type='text' placeholder='Location' className='formInput' value={this.state.location_text} onChange={ev => this.handleLocation(ev)} />
+          <br/>
+          <ul className='searchResultsList'>
+            { results }
+          </ul>
+          <button onClick={()=> this.handleAdd()}> Add </button>
       </div>
     )
   }

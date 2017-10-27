@@ -53,6 +53,21 @@ export function sortCategory(events){
 //   return splitTime.join('')
 // }
 
+export function splitTime(time){
+  //set the hours
+  let hours = Math.floor(time / 60);
+
+  //set the minutes
+  let minutes = time % 60;
+
+
+  if (minutes === 0){
+    minutes = '00'
+  }
+
+  return `${hours}:${minutes}`;
+}
+
 
 export function replaceTime(time) {
   //set the hours
@@ -71,8 +86,6 @@ export function replaceTime(time) {
   if (minutes === 0){
     minutes = '00'
   }
-
-
 
   return `${hours}:${minutes} ${ampm}`;
 }
