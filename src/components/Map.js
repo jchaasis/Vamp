@@ -11,8 +11,11 @@ import { displayEvents, getCurrentLoc } from '../actions';
 
 //import notifications
 import Notification from './Notification';
+import flame from '../styles/flame.png'
+
 //import other functions
 import { sortTime } from '../util';
+
 
 class Map extends Component {
   constructor(props){
@@ -161,9 +164,15 @@ getCurrent(){
     let fence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))
     console.log(fence)
 
-    if (fence <= 0.00137241985){
-      {Notification}
+    if (fence <= 0.00137241985 && isClose.likes.length >= 20){
+      console.log("HOT SPOT!")
+      window.Notification.requestPermission().then((permission)=>{
+        let n = new window.Notification("L I T  Event Nearby!", {body: `${isClose.description}`, icon: `${flame}`});
+      });
+      
     }
+    // console.log(window.Notification.permission);
+    
   }
 
   // console.log(this.props.location)TODO: come back to this
