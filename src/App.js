@@ -51,11 +51,11 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Vamp</h1>
         </header>
-        <main className="main">
+        <div className="main">
           <NavBar toggleForm={()=>this.toggleEventForm()}/>
           { addEvent }
           <MapDisp />
-        </main>
+        </div>
         <footer className="App-footer">
           {/* <Legend /> */}
         </footer>

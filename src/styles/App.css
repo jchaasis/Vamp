@@ -1,7 +1,75 @@
-.App {
+/*.App {
   text-align: center;
   width: 500px;
   margin-left: 20%;
+}*/
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (min-width : 330px) {
+
+  .App {
+    display: grid;
+    grid-template-rows: 10% 90% 5%;
+    text-align: center;
+    width: 100%;
+    height: 600px;
+  }
+  .main{
+    height: 100%;
+  }
+
+  .mapStyle{
+    display: flex;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 550px;
+  }
+}
+
+/* tablets ----------- */
+@media only screen  and (min-width : 401px) {
+  .App {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .main{
+    height: 100%;
+  }
+
+  #map{
+    height: 80vh;
+  }
+
+  .mapStyle{
+    display: flex;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 1000px) {
+  .App {
+    text-align: center;
+    width: 100%;
+  }
+
+  #map{
+    height: 80vh;
+  }
+
+  .mapStyle{
+    display: flex;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 700px;
+  }
 }
 
 .App-header {
@@ -26,7 +94,7 @@
   position: absolute;
   z-index: 5;
   width: 10%;
-  height: 450px;
+  height: 100%;
   background-color: grey;
   padding-top: 50px;
   display: flex;
@@ -86,13 +154,13 @@
 }
 
 /*map*/
-.mapStyle{
+/*.mapStyle{
   display: flex;
   position: relative;
   z-index: 1;
   width: 500px;
   height: 500px;
-}
+}*/
 
 /*event form styles*/
 .eventForm{

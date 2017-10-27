@@ -28,7 +28,6 @@ class Map extends Component {
     }
   }
 
-
   getLocation(){
     //get the coordinates or our current location and watch for a change.
     let current = navigator.geolocation.watchPosition(position => {
