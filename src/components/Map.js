@@ -9,13 +9,11 @@ import { connect } from 'react-redux';
 //import actions
 import { displayEvents, getCurrentLoc } from '../actions';
 
-<<<<<<< HEAD
-=======
+
 //import notifications
 import Notification from './Notification';
 import flame from '../styles/flame.png'
 
->>>>>>> notifications
 //import other functions
 import { sortTime } from '../util';
 
@@ -168,7 +166,7 @@ getCurrent(){
 
     let a = isClose.latitude - this.state.lat
     let b = isClose.longitude - this.state.lng
-        
+
     let fence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))
     console.log(fence)
 
@@ -177,10 +175,10 @@ getCurrent(){
       window.Notification.requestPermission().then((permission)=>{
         let n = new window.Notification("L I T  Event Nearby!", {body: `${isClose.description}`, icon: `${flame}`});
       });
-      
+
     }
     // console.log(window.Notification.permission);
-    
+
   }
 
   // console.log(this.props.location)TODO: come back to this
