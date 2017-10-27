@@ -40,7 +40,7 @@ class Map extends Component {
   }
 
   componentWillMount(){
-    this.getLocation();
+    // this.getLocation();
     // // this.props.getCurrentLoc()
   }
 
@@ -169,7 +169,6 @@ getCurrent(){
       });
 
     }
-    // console.log(window.Notification.permission);
 
   }
 
@@ -212,6 +211,7 @@ convertTime(time){
 }
 
   render(){
+    this.getLocation();
     this.plotPoints()
 
     return(
