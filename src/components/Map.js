@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 //import actions
 import { displayEvents, getCurrentLoc } from '../actions';
 
-
 //import notifications
 import Notification from './Notification';
 import flame from '../styles/flame.png'
