@@ -171,7 +171,7 @@ getCurrent(){
       .setLngLat([this.state.lng, this.state.lat])
       .addTo(this.map)
 }
-//
+
 componentWillUpdate(){
 
   // if (this.props.location.lng !== null){
