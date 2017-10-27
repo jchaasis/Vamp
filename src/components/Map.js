@@ -28,16 +28,6 @@ class Map extends Component {
     }
   }
 
-  //set the state of the current location. TODO: delete this function in development
-  // updateLocation(latitude, longitude){
-  //   this.setState({
-  //     lat: latitude,
-  //     lng: longitude,
-  //   })
-  // }
-  //
-  //get our current location and watch to see if it updates
-
 
   getLocation(){
     //get the coordinates or our current location and watch for a change.
@@ -197,16 +187,6 @@ getCurrent(){
     const current = new window.mapboxgl.Marker(curr)
       .setLngLat([this.state.lng, this.state.lat])
       .addTo(this.map)
-}
-
-componentWillUpdate(){
-
-
-}
-
-componentWillReceiveProps(nextProps){
-  // this.plotPoints()
-
 }
 
 //convert the time into am/pm format.
