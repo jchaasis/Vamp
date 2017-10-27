@@ -9,8 +9,16 @@ import { connect } from 'react-redux';
 //import actions
 import { displayEvents, getCurrentLoc } from '../actions';
 
+<<<<<<< HEAD
+=======
+//import notifications
+import Notification from './Notification';
+import flame from '../styles/flame.png'
+
+>>>>>>> notifications
 //import other functions
 import { sortTime } from '../util';
+
 
 class Map extends Component {
   constructor(props){
@@ -155,6 +163,25 @@ handleLike(event){
 
 //get the users current location
 getCurrent(){
+  for (let i = 0; i < this.props.events.length; i++){
+    let isClose = this.props.events[i]
+
+    let a = isClose.latitude - this.state.lat
+    let b = isClose.longitude - this.state.lng
+        
+    let fence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))
+    console.log(fence)
+
+    if (fence <= 0.00137241985 && isClose.likes.length >= 20){
+      console.log("HOT SPOT!")
+      window.Notification.requestPermission().then((permission)=>{
+        let n = new window.Notification("L I T  Event Nearby!", {body: `${isClose.description}`, icon: `${flame}`});
+      });
+      
+    }
+    // console.log(window.Notification.permission);
+    
+  }
 
   // console.log(this.props.location)TODO: come back to this
 
