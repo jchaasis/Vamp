@@ -20,8 +20,8 @@ class EventForm extends Component{
     this.state = {
       location_text: '', // text that appears in the box
       //create event object to pass along
-      startDisp: '',
-      stopDisp: '',
+      startDisp: 'Start Time',
+      stopDisp: 'End Time',
       event:{
         description: '',
         category:'',
@@ -226,7 +226,7 @@ handleAdd(){
 
           <br/>
 
-        
+
           <select className='formInput' placeholder='category' value={this.state.category} onChange={ev=> this.handleCategory(ev)}>
             <option value=''> Category </option>
             <option value='Sports/Outdoors'> Sports/Outdoors </option>
@@ -237,14 +237,14 @@ handleAdd(){
 
           <br/>
 
-          <label className='formLabel'>Start: </label>
+          <label className='formLabel'> </label>
           {this.state.startDisp}
           <div>
 
             <input type="range" min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStart(ev)}/>
           </div>
           <br/>
-          <label className='formLabel'>Stop: </label>
+          <label className='formLabel'></label>
           {this.state.stopDisp}
           <div>
 
