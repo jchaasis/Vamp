@@ -39,6 +39,16 @@ class Map extends Component {
   //get our current location and watch to see if it updates
   getLocation(){
     let current = navigator.geolocation.watchPosition(position => {
+      if (this.state.lat && this.state.lng !== null){
+        this.map.setCenter([this.state.lng, this.state.lat]);
+        this.map.setZoom(16);
+        // console.log(this.map.setCenter())
+      }
+      // this.map.setCenter([this.state.lng, this.state.lat]);
+      // this.map.setZoom(16);
+      // console.log(this.map.setCenter())
+      
+
       this.setState({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
@@ -47,7 +57,7 @@ class Map extends Component {
   }
 
   componentWillMount(){
-    this.getLocation();
+    // this.getLocation();
     // // this.props.getCurrentLoc()
   }
 
@@ -59,11 +69,19 @@ class Map extends Component {
         container: 'map',
         center:[this.state.lng, this.state.lat],
         style: 'mapbox://styles/vamplife/cj8om9bgf8tm92ro2i66lz2uh',
-        positionOptions: {
-            enableHighAccuracy: true
-        },
-          trackUserLocation: true
+        // positionOptions: {
+        //     enableHighAccuracy: true
+        // },
+        //   trackUserLocation: true
     });
+
+    // this.map.addControl(new window.mapboxgl.GeolocateControl({
+    //   positionOptions: {
+    //     enableHighAccuracy: true
+    // },
+    //   trackUserLocation: true
+    // }));
+    
     //zoom in, zoom out, and compass control
     this.map.addControl(new window.mapboxgl.NavigationControl());
   }
@@ -71,6 +89,8 @@ class Map extends Component {
   componentDidMount(){
     //load the map once the component mounts
     this.establishMap();
+    // this.getLocation();
+    
   }
 
 //function to be called that will create points and markers for each event
@@ -172,7 +192,7 @@ getCurrent(){
     if (fence <= 0.00137241985 && isClose.likes.length >= 20){
       console.log("HOT SPOT!")
       window.Notification.requestPermission().then((permission)=>{
-        let n = new window.Notification("L I T  Event Nearby!", {body: `${isClose.description}`, icon: `${flame}`});
+        let n = new window.Notification("L I T  Event Nearby!", {body: `${isClose.description} until ${isClose.eventEnd}`, icon: `${flame}`, renotify: false});
       });
       
     }
@@ -244,6 +264,8 @@ convertTime(time){
 }
 
   render(){
+    this.getLocation();
+    
 
     return(
         <div id='map' className='mapStyle'>
