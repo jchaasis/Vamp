@@ -65,8 +65,7 @@ class NavBar extends Component{
             <button onClick={()=>this.toggleFilter()}> filter </button>
             {filterEvents}
 
-        {   //<Legend />
-        }
+          <Legend />
 
           </div>
       )
