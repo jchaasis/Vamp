@@ -27,10 +27,11 @@ class NavBar extends Component{
   toggleEventForm(){
     this.props.toggleForm()
   }
-
+  //toggle the visibility of the filter list when the button is clicked
   toggleFilter(){
+    
     this.setState({
-      filter: true,
+      filter: !this.state.filter,
     })
     console.log('filter open')
   }

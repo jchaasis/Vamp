@@ -39,7 +39,7 @@ class Map extends Component {
       // this.map.setCenter([this.state.lng, this.state.lat]);
       // this.map.setZoom(16);
       // console.log(this.map.setCenter())
-      
+
 
       this.setState({
         lat: position.coords.latitude,
@@ -73,7 +73,7 @@ class Map extends Component {
     // },
     //   trackUserLocation: true
     // }));
-    
+
     //zoom in, zoom out, and compass control
     this.map.addControl(new window.mapboxgl.NavigationControl());
   }
@@ -82,7 +82,7 @@ class Map extends Component {
     //load the map once the component mounts
     this.establishMap();
     // this.getLocation();
-    
+
   }
 
 //function to be called that will create points and markers for each event
@@ -231,7 +231,7 @@ getCurrent(){
   render(){
     this.getLocation();
     this.plotPoints()
-    
+
 
     return(
         <div id='map' className='mapStyle'>
