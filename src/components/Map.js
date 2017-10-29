@@ -14,7 +14,7 @@ import Notification from './Notification';
 import flame from '../styles/flame.png'
 
 //import other functions
-import { sortTime } from '../util';
+import { sortTime, convertTime} from '../util';
 
 
 class Map extends Component {
@@ -97,11 +97,10 @@ plotPoints(){
 
   //if the filter category in the store is undefined, display all events, if not filter the events and display only those matching the category
   if (this.props.filter === 'Show All'){
+
     availableEvents = this.props.events
   } else {
     availableEvents = this.props.events.filter(event => event.category === this.props.filter)
-    console.log(this.props.filter)
-    console.log(availableEvents)
   }
 
   //loop through the stored events
@@ -135,7 +134,7 @@ plotPoints(){
     // create a custom popup for each individual item
     let popup = new window.mapboxgl.Popup({ offset: 25 })
           // .setHTML(<Popup/>)
-          .setHTML(`<div><h3> ${newMark.description} </h3><p> ${this.convertTime(newMark.eventStart)} - ${this.convertTime(newMark.eventEnd)} </p><button class="like">&#128077; </button><span> : ${newMark.likes.length}<span></div>`)
+          .setHTML(`<div><h3> ${newMark.description} </h3><p> ${convertTime(newMark.eventStart)} - ${convertTime(newMark.eventEnd)} </p><button class="like">&#128077; </button><span> : ${newMark.likes.length}<span></div>`)
 
     // Get the button inside of this popup. Add an event listener
     // that calls the handleLike() function.
@@ -208,26 +207,26 @@ getCurrent(){
 }
 
 //convert the time into am/pm format.
-convertTime(time){
-  //split the time at the colons
-  let splitTime = time.split(':');
-
-  let meridies ; // used to store am or pm
-
-  //remove the seconds
-  splitTime.splice(2, 1)
-
-  //convert afternoon time
-  if (parseInt(splitTime[0]) > 12){
-    meridies = 'pm'
-    splitTime[0] = (parseInt(splitTime[0]) - 12).toString();//Convert the hours into a number then subtract 12. After calculating the new number, convert back to a string.
-  } else {
-    //add am to the morning time
-    meridies = 'am'
-  }
-  //return the final result
-  return(splitTime.join(':') + meridies)
-}
+// convertTime(time){
+//   //split the time at the colons
+//   let splitTime = time.split(':');
+//
+//   let meridies ; // used to store am or pm
+//
+//   //remove the seconds
+//   splitTime.splice(2, 1)
+//
+//   //convert afternoon time
+//   if (parseInt(splitTime[0]) > 12){
+//     meridies = 'pm'
+//     splitTime[0] = (parseInt(splitTime[0]) - 12).toString();//Convert the hours into a number then subtract 12. After calculating the new number, convert back to a string.
+//   } else {
+//     //add am to the morning time
+//     meridies = 'am'
+//   }
+//   //return the final result
+//   return(splitTime.join(':') + meridies)
+// }
 
   render(){
     this.getLocation();

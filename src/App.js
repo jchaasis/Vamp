@@ -14,6 +14,7 @@ import { sortTime } from './util'
 import EventForm from './components/EventForm';
 import NavBar from './components/NavBar';
 import MapDisp from './components/Map';
+import EventsTable from './components/listView/EventsTable';
 
 // import Legend from './components/Legend';
 
@@ -55,8 +56,8 @@ class App extends Component {
           { addEvent }
           <MapDisp />
         </div>
+        <EventsTable />
         <footer className="App-footer">
-          {/* <Legend /> */}
         </footer>
       </div>
     );

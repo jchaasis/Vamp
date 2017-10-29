@@ -91,60 +91,23 @@ export function replaceTime(time) {
 }
 
 
-//
-// export function firstTime(time){
-//   //variable to store the final result
-//   let finalTime;
-//
-//   let displayTime;
-//
-//   //function to add a colon to the time TODO: make this its own unique function above, and then
-//     // function splitTime(time, x){
-//       //split the time into an array of all the numbers
-//      let splitTime = time.split('')
-//       //add a colon at index x
-//       splitTime.splice(x, 0, ':')
-//
-//       //join the array into a single time
-//      let colonizedTime = splitTime.join('')
-//
-//      //return the newly colonized time to be used
-//      return (colonizedTime)
-//     }
-//
-//   if (time.length === 2){
-//
-//   } else if (time.length === 3){
-//
-//     //run the splittime function to add a colon
-//     splitTime(time, 1)
-//
-//     //add am to the string
-//     finalTime = splitTime(time, 1) + ' am'
-//
-//   } else if (time.length === 4){
-//
-//     displayTime = splitTime(time, 2);
-//
-//     //seperate the time if it is 4 characters long to find out if it is am or pm
-//     let seperatedTime = displayTime.split(':');
-//
-//       if (parseInt(seperatedTime[0]) > 12 ){
-//         //parse hr into an integer subtract 12 and return to a string
-//         seperatedTime[0] = (parseInt(seperatedTime[0]) - 12).toString() ;
-//
-//         //its in the afternoon so join the elements and add pm
-//         finalTime = seperatedTime.join(':') + ' pm';
-//
-//       } else if (parseInt(seperatedTime[0]) === 12){
-//
-//         finalTime = seperatedTime.join(':') + ' pm';
-//       } else {
-//         //it is still in the morning so join the items and add am
-//         finalTime = (seperatedTime.join(':') + ' am');
-//
-//       }
-//
-//   }
-//   return(finalTime)
-// }
+export function convertTime(time){
+  //split the time at the colons
+  let splitTime = time.split(':');
+
+  let meridies ; // used to store am or pm
+
+  //remove the seconds
+  splitTime.splice(2, 1)
+
+  //convert afternoon time
+  if (parseInt(splitTime[0]) > 12){
+    meridies = 'pm'
+    splitTime[0] = (parseInt(splitTime[0]) - 12).toString();//Convert the hours into a number then subtract 12. After calculating the new number, convert back to a string.
+  } else {
+    //add am to the morning time
+    meridies = 'am'
+  }
+  //return the final result
+  return(splitTime.join(':') + meridies)
+}
