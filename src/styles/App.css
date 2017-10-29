@@ -8,6 +8,37 @@
 /*font-family: 'Nunito', sans-serif;
 font-family: 'Ubuntu Condensed', sans-serif;*/
 
+
+
+.my-legend .legend-title {
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 90%;
+  }
+.my-legend .legend-scale ul {
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  float: left;
+  list-style: none;
+  }
+.my-legend .legend-scale ul li {
+  font-size: 80%;
+  list-style: none;
+  margin-left: 0;
+  line-height: 18px;
+  margin-bottom: 2px;
+  }
+.my-legend ul.legend-labels li span img{
+  display: block;
+  float: left;
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  margin-left: 0;
+  }
+
 /* Smartphones (portrait) ----------- */
 @media only screen and (min-width : 330px) {
 
@@ -287,14 +318,6 @@ font-family: 'Ubuntu Condensed', sans-serif;*/
   margin: 0px;
 }
 
-.legendSpace {
-  margin: 10px;
-  width: 115px;
-  height: 115px;
-  line-height: 115px;
-  text-align: center;
-  border: 1px solid red;
-}
 .reSize {
   max-width:100%;
   max-height:100%;
@@ -443,3 +466,32 @@ font-family: 'Ubuntu Condensed', sans-serif;*/
     height: 50px;
   }
 }
+
+/* .my-legend .legend-title {
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 90%;
+  }
+.my-legend .legend-scale ul {
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  float: left;
+  list-style: none;
+  }
+.my-legend .legend-scale ul li {
+  font-size: 80%;
+  list-style: none;
+  margin-left: 0;
+  line-height: 18px;
+  margin-bottom: 2px;
+  }
+.my-legend ul.legend-labels li span img{
+  display: block;
+  float: left;
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  margin-left: 0;
+  } */
