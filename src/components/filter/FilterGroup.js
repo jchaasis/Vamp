@@ -32,13 +32,13 @@ class RadioGroup extends Component {
 
   render(){
 
-    let options = ['Sports/Outdoors', 'Music/Art', 'Food/Bev', 'Community', 'Show All']
+    let options = ['Show All', 'Sports/Outdoors', 'Music/Art', 'Food/Bev', 'Community']
     //create a list of radio buttons based off of the available categories
     let buttons = options.map((option, index) => <FilterButton key={index} value={option} handleClick={ev=>this.handleClick(ev)} />)
 
     return(
 
-      <ul>
+      <ul className='filterList'>
         {buttons}
       </ul>
 
