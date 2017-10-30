@@ -29,7 +29,7 @@ class NavBar extends Component{
   }
   //toggle the visibility of the filter list when the button is clicked
   toggleFilter(){
-    
+
     this.setState({
       filter: !this.state.filter,
     })
@@ -62,9 +62,10 @@ class NavBar extends Component{
             <button onClick={() => this.toggleNav()} className='closeButton'> <p className='closeX'>
               X
             </p> </button>
-            <button onClick={() => this.toggleEventForm()}> Add Event </button>
-            <button onClick={()=>this.toggleFilter()}> filter </button>
+            <button className='navButton' onClick={() => this.toggleEventForm()}> ADD EVENT </button>
+            <button className='navButton' onClick={()=>this.toggleFilter()}> FILTER </button>
             {filterEvents}
+            <button className='navButton' onClick={()=>this.props.toggleList()}> LIST VIEW </button>
 
           <Legend />
 
