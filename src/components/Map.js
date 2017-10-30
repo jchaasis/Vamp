@@ -229,7 +229,7 @@ getCurrent(){
 // }
 
   render(){
-    this.getLocation();
+    // this.getLocation();
     this.plotPoints()
 
 

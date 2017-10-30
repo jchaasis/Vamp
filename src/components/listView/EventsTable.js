@@ -13,7 +13,7 @@ class EventsTable extends Component {
     super(props)
 
     this.state = {
-      list: false,
+
     }
   }
 
@@ -28,7 +28,6 @@ class EventsTable extends Component {
 
 
   render(){
-
     let availableEvents;
       //if the filter category in the store is undefined, display all events, if not filter the events and display only those matching the category
     if (this.props.filter === 'Show All'){
@@ -45,7 +44,7 @@ class EventsTable extends Component {
     let events = availableEvents.map((event, index) => <SingleEvent key={index} details={event} />)
 
     //set the className for the table based off of the state. This will either show or hide the events table
-    let styleName = this.state.list ? 'visibleTable' : 'hiddenTable'
+    // let styleName = this.state.list ? 'visibleTable' : 'hiddenTable'
 
     //set the content of the div based off of the state. This will either show or hide the table itself.
     let content;
@@ -80,10 +79,31 @@ class EventsTable extends Component {
     }
 
     return(
-      <div  className={styleName}>
-      <button onClick={()=>this.handleTableToggle()}> List View </button>
+      <div  className='visibleTable'>
+      <button onClick={()=>this.props.toggleList()}> List View </button>
+      <table className="eventsTable">
+        <tbody>
+          <tr>
+            <th>
+              Description
+            </th>
+            <th>
+              Category
+            </th>
+            <th>
+              Location
+            </th>
+            <th>
+              Start Time
+            </th>
+            <th>
+              End Time
+            </th>
+          </tr>
+          {events}
+        </tbody>
+      </table>
 
-      {content}
 
       </div>
     )

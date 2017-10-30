@@ -184,31 +184,43 @@ handleLocation(ev){
 
 // when the form is submitted,
 handleAdd(){
+
     console.log(this.state.event)
     let details = this.state.event //shortened for ease of use below
 
-    //send the newly added event to the server.
-    fetch("https://vamp-app.herokuapp.com/add-events", {
-             method: 'POST',
-             headers: {
-                 'Accept': 'application/json',
-                 'Content-Type': 'application/json',
-             },
-             body: JSON.stringify({
-                        description: details.description,
-                        category: details.category,
-                        eventStart: details.start + ':00',
-                        eventEnd: details.stop + ':00',
-                        latitude: details.location.lat,
-                        longitude: details.location.lng,
-             }),
-    }).then(()=>{
-       //TODO: dispatch the display action
+    if (details.description !== '' &&
+        details.category !== '' &&
+        details.start !== '' &&
+        details.stop !== '' &&
+        details.location.lat !== '' &&
+        details.location.lng !== '') {
 
-       this.props.toggleForm()
-    }).then(() => {
-      this.props.display()
-    })
+          //send the newly added event to the server.
+          fetch("https://vamp-app.herokuapp.com/add-events", {
+                   method: 'POST',
+                   headers: {
+                       'Accept': 'application/json',
+                       'Content-Type': 'application/json',
+                   },
+                   body: JSON.stringify({
+                              description: details.description,
+                              category: details.category,
+                              eventStart: details.start + ':00',
+                              eventEnd: details.stop + ':00',
+                              latitude: details.location.lat,
+                              longitude: details.location.lng,
+                   }),
+          }).then(()=>{
+             //TODO: dispatch the display action
+
+             this.props.toggleForm()
+          }).then(() => {
+            this.props.display()
+          })
+
+        } else{
+          window.alert('Please complete all fields before submission.')
+        }
 
 }
 

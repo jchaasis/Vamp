@@ -23,6 +23,7 @@ class App extends Component {
     super(props);
     this.state = {
       addEvent: false,
+      list: false,
     }
   }
 
@@ -40,10 +41,20 @@ class App extends Component {
     })
   }
 
+  toggleListView(){
+    console.log('list toggled')
+    this.setState({
+      list: !this.state.list,
+    })
+
+
+  }
 
   render() {
     //when the "Add event" button is clicked, show the event form. pass the toggleEventForm function down to the form so that the exit and add buttons can use it to close the form.
     let addEvent = this.state.addEvent ? <EventForm toggleForm={() => this.toggleEventForm()}/> : null;
+
+    let listView = this.state.list ? <EventsTable toggleList={()=>this.toggleListView()}/> : null;
 
 
     return (
@@ -52,11 +63,11 @@ class App extends Component {
           <h1 className="App-title">Vamp</h1>
         </header>
         <div className="main">
-          <NavBar toggleForm={()=>this.toggleEventForm()}/>
+          <NavBar toggleForm={()=>this.toggleEventForm()} toggleList={() => this.toggleListView()}/>
           { addEvent }
           <MapDisp />
         </div>
-        <EventsTable />
+        {listView}
         <footer className="App-footer">
         </footer>
       </div>

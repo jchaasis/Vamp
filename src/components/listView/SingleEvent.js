@@ -19,17 +19,21 @@ class SingleEvent extends Component {
     fetch(url)
       .then(resp => resp.json()) //parse the json
       .then(resp => {
+          console.log(resp)
           this.setState({
-            address: resp.features[0].place_name,
+            address: resp.features[0].properties.address,
           })
         })
       }
+
+    componentDidMount(){
+      this.getAddress(this.props.details.longitude, this.props.details.latitude)
+    }
 
 
   render(){
 
     let event = this.props.details;
-    // this.getAddress(event.longitude, event.latitude)
 
     return(
       <tr>
