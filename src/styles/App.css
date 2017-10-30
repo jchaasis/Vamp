@@ -454,11 +454,13 @@ font-family: 'Ubuntu Condensed', sans-serif;*/
   background-color: grey;
   color: rgb(202,205,210);
   border: 1px solid rgb(202,205,210);
+  box-shadow: inset 0 0 0 0 rgb(202,205,210);
 }
 
 .navButton:hover{
   color: black;
-  background-color: rgb(202,205,210);
+  box-shadow: inset 500px 0 0 0 rgb(202,205,210);
+  transition: 1.5s;
 }
 
 .navButton:focus{
