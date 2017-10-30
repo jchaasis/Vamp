@@ -14,7 +14,7 @@ import Notification from './Notification';
 import flame from '../styles/flame.png'
 
 //import other functions
-import { sortTime, convertTime} from '../util';
+import { sortTime, convertTime,} from '../util';
 
 
 class Map extends Component {
@@ -31,8 +31,10 @@ class Map extends Component {
   getLocation(){
     //get the coordinates or our current location and watch for a change.
     let current = navigator.geolocation.watchPosition(position => {
-      if (this.state.lat && this.state.lng !== null){
-        this.map.setCenter([this.state.lng, this.state.lat]);
+      console.log('got new position');
+
+      if (this.state.lat === null && this.state.lng === null){
+        this.map.setCenter([position.coords.longitude, position.coords.latitude]);
         this.map.setZoom(16);
         // console.log(this.map.setCenter())
       }
@@ -81,7 +83,7 @@ class Map extends Component {
   componentDidMount(){
     //load the map once the component mounts
     this.establishMap();
-    // this.getLocation();
+    this.getLocation();
 
   }
 
@@ -183,7 +185,7 @@ getCurrent(){
     if (fence <= 0.00137241985 && isClose.likes.length >= 20){
       // console.log("HOT SPOT!")
       window.Notification.requestPermission().then((permission)=>{
-        let n = new window.Notification("L I T  Event Nearby!", {body: `${isClose.description} until ${isClose.eventEnd}`, icon: `${flame}`, renotify: false});
+        let n = new window.Notification("L I T  Event Nearby!", {body: `${isClose.description} until ${convertTime(isClose.eventEnd)}`, icon: `${flame}`, image: `${flame}`, badge: `${flame}`});
       });
 
     }
@@ -229,7 +231,7 @@ getCurrent(){
 // }
 
   render(){
-    this.getLocation();
+    // this.getLocation();
     this.plotPoints()
 
 
