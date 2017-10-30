@@ -14,6 +14,7 @@ import { sortTime } from './util'
 import EventForm from './components/EventForm';
 import NavBar from './components/NavBar';
 import MapDisp from './components/Map';
+import EventsTable from './components/listView/EventsTable';
 
 // import Legend from './components/Legend';
 
@@ -22,7 +23,7 @@ class App extends Component {
     super(props);
     this.state = {
       addEvent: false,
-
+      list: false,
     }
   }
 
@@ -40,10 +41,20 @@ class App extends Component {
     })
   }
 
+  toggleListView(){
+    console.log('list toggled')
+    this.setState({
+      list: !this.state.list,
+    })
+
+
+  }
 
   render() {
     //when the "Add event" button is clicked, show the event form. pass the toggleEventForm function down to the form so that the exit and add buttons can use it to close the form.
     let addEvent = this.state.addEvent ? <EventForm toggleForm={() => this.toggleEventForm()}/> : null;
+
+    let listView = this.state.list ? <EventsTable toggleList={()=>this.toggleListView()}/> : null;
 
 
     return (
@@ -51,13 +62,13 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Vamp</h1>
         </header>
-        <main className="main">
-          <NavBar toggleForm={()=>this.toggleEventForm()}/>
+        <div className="main">
+          <NavBar toggleForm={()=>this.toggleEventForm()} toggleList={() => this.toggleListView()}/>
           { addEvent }
           <MapDisp />
-        </main>
+        </div>
+        {listView}
         <footer className="App-footer">
-          {/* <Legend /> */}
         </footer>
       </div>
     );

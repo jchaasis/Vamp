@@ -89,3 +89,25 @@ export function replaceTime(time) {
 
   return `${hours}:${minutes} ${ampm}`;
 }
+
+
+export function convertTime(time){
+  //split the time at the colons
+  let splitTime = time.split(':');
+
+  let meridies ; // used to store am or pm
+
+  //remove the seconds
+  splitTime.splice(2, 1)
+
+  //convert afternoon time
+  if (parseInt(splitTime[0]) > 12){
+    meridies = 'pm'
+    splitTime[0] = (parseInt(splitTime[0]) - 12).toString();//Convert the hours into a number then subtract 12. After calculating the new number, convert back to a string.
+  } else {
+    //add am to the morning time
+    meridies = 'am'
+  }
+  //return the final result
+  return(splitTime.join(':') + meridies)
+}

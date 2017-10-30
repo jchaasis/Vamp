@@ -20,8 +20,8 @@ class EventForm extends Component{
     this.state = {
       location_text: '', // text that appears in the box
       //create event object to pass along
-      startDisp: '',
-      stopDisp: '',
+      startDisp: 'Start Time',
+      stopDisp: 'End Time',
       event:{
         description: '',
         category:'',
@@ -184,31 +184,43 @@ handleLocation(ev){
 
 // when the form is submitted,
 handleAdd(){
+
     console.log(this.state.event)
     let details = this.state.event //shortened for ease of use below
 
-    //send the newly added event to the server.
-    fetch("https://vamp-app.herokuapp.com/add-events", {
-             method: 'POST',
-             headers: {
-                 'Accept': 'application/json',
-                 'Content-Type': 'application/json',
-             },
-             body: JSON.stringify({
-                        description: details.description,
-                        category: details.category,
-                        eventStart: details.start + ':00',
-                        eventEnd: details.stop + ':00',
-                        latitude: details.location.lat,
-                        longitude: details.location.lng,
-             }),
-    }).then(()=>{
-       //TODO: dispatch the display action
+    if (details.description !== '' &&
+        details.category !== '' &&
+        details.start !== '' &&
+        details.stop !== '' &&
+        details.location.lat !== '' &&
+        details.location.lng !== '') {
 
-       this.props.toggleForm()
-    }).then(() => {
-      this.props.display()
-    })
+          //send the newly added event to the server.
+          fetch("https://vamp-app.herokuapp.com/add-events", {
+                   method: 'POST',
+                   headers: {
+                       'Accept': 'application/json',
+                       'Content-Type': 'application/json',
+                   },
+                   body: JSON.stringify({
+                              description: details.description,
+                              category: details.category,
+                              eventStart: details.start + ':00',
+                              eventEnd: details.stop + ':00',
+                              latitude: details.location.lat,
+                              longitude: details.location.lng,
+                   }),
+          }).then(()=>{
+             //TODO: dispatch the display action
+
+             this.props.toggleForm()
+          }).then(() => {
+            this.props.display()
+          })
+
+        } else{
+          window.alert('Please complete all fields before submission.')
+        }
 
 }
 
@@ -226,7 +238,7 @@ handleAdd(){
 
           <br/>
 
-        
+
           <select className='formInput' placeholder='category' value={this.state.category} onChange={ev=> this.handleCategory(ev)}>
             <option value=''> Category </option>
             <option value='Sports/Outdoors'> Sports/Outdoors </option>
@@ -237,14 +249,14 @@ handleAdd(){
 
           <br/>
 
-          <label className='formLabel'>Start: </label>
+          <label className='formLabel'> </label>
           {this.state.startDisp}
           <div>
 
             <input type="range" min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStart(ev)}/>
           </div>
           <br/>
-          <label className='formLabel'>Stop: </label>
+          <label className='formLabel'></label>
           {this.state.stopDisp}
           <div>
 
