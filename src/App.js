@@ -41,8 +41,8 @@ class App extends Component {
     })
   }
 
+  //Toggle the visibility of the list view
   toggleListView(){
-    console.log('list toggled')
     this.setState({
       list: !this.state.list,
     })

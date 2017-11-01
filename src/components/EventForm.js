@@ -129,7 +129,6 @@ handleStop(ev){
   }
 
 //when a location on the provided list is clicked, handle location
-   //TODO: clean up the results of the geocoding so that they show only relevant results
 
 updateLocation(locInfo){
 
@@ -149,7 +148,7 @@ updateLocation(locInfo){
     },
     searchResults: null,//location fetch results
   })
-  //callback. after we store the info, make the search results turn null so that we do not have to see the dropdown box anymore
+  // After we store the info, make the search results turn null so that we do not have to see the dropdown box anymore
 }
 
 handleLocation(ev){
@@ -185,7 +184,6 @@ handleLocation(ev){
 // when the form is submitted,
 handleAdd(){
 
-    console.log(this.state.event)
     let details = this.state.event //shortened for ease of use below
 
     if (details.description !== '' &&
@@ -216,9 +214,8 @@ handleAdd(){
              this.props.toggleForm()
           }).then(() => {
             this.props.display()
-          })
+          })} else{
 
-        } else{
           window.alert('Please complete all fields before submission.')
         }
 
@@ -226,20 +223,22 @@ handleAdd(){
 
   render(){
     let results;
+    //if there are search results present, display them under the location box
     if (this.state.searchResults !== null){
       results = this.state.searchResults.map((details, index) => <LocationResult key={index} location={details} updateLocation={(locInfo)=> this.updateLocation(locInfo)}/>)
     }
 
     return(
       <div className='eventForm'>
-        <button className="closeForm" onClick={() => this.props.toggleForm()}> X </button>
-
-          <input type='text' className='formInput' placeholder='Description' onChange={ ev => this.handleDescription(ev)} maxLength='70'/>
+        <div>
+          <button className="closeForm" onClick={() => this.props.toggleForm()}> X </button>
+        </div>
+          <input type='text' id='description' className='formInput' placeholder='Description' onChange={ ev => this.handleDescription(ev)} maxLength='70'/>
 
           <br/>
 
 
-          <select className='formInput' placeholder='category' value={this.state.category} onChange={ev=> this.handleCategory(ev)}>
+          <select id='categoryDropdown' className='formInput'  value={this.state.category} onChange={ev=> this.handleCategory(ev)}>
             <option value=''> Category </option>
             <option value='Sports/Outdoors'> Sports/Outdoors </option>
             <option value='Music/Art'> Music/Art </option>
@@ -253,14 +252,14 @@ handleAdd(){
           {this.state.startDisp}
           <div>
 
-            <input type="range" min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStart(ev)}/>
+            <input className='formInput' type="range" min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStart(ev)}/>
           </div>
           <br/>
           <label className='formLabel'></label>
           {this.state.stopDisp}
           <div>
 
-            <input type="range" min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStop(ev)}/>
+            <input id='startTime' className='formInput' type="range" min="" step="15" max="1440" data-values="1 9" onChange={ev=> this.sliderStop(ev)}/>
           </div>
 
           <br/>
@@ -270,7 +269,7 @@ handleAdd(){
           <ul className='searchResultsList'>
             { results }
           </ul>
-          <button onClick={()=> this.handleAdd()}> Add </button>
+          <button className="addButton" onClick={()=> this.handleAdd()}> Add </button>
       </div>
     )
   }

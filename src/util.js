@@ -35,24 +35,6 @@ export function sortTime(events){
   return(sortedEvents)
 }
 
-
-export function sortCategory(events){
-  //look to see if the state of the filter bar is clicked. If it is, get the value which is being used to filter and show only those events where the category matches.
-  let category;
-
-
-}
-
-
-// function splitTime(time, x){
-  //split the number string into an array of individual numbers
-// let splitTime = time.split('')
-  //add a colon after index x
-//   splitTime.splice(x, 0, ':')
-    //return the colonized time
-//   return splitTime.join('')
-// }
-
 export function splitTime(time){
   //set the hours
   let hours = Math.floor(time / 60);

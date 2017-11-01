@@ -33,7 +33,6 @@ class NavBar extends Component{
     this.setState({
       filter: !this.state.filter,
     })
-    console.log('filter open')
   }
 
   render(){

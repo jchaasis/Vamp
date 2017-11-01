@@ -31,7 +31,7 @@ class Map extends Component {
   getLocation(){
     //get the coordinates or our current location and watch for a change.
     let current = navigator.geolocation.watchPosition(position => {
-      console.log('got new position');
+
 
       if (this.state.lat === null && this.state.lng === null){
         this.map.setCenter([position.coords.longitude, position.coords.latitude]);
@@ -63,18 +63,9 @@ class Map extends Component {
         container: 'map',
         center:[this.state.lng, this.state.lat],
         style: 'mapbox://styles/vamplife/cj8om9bgf8tm92ro2i66lz2uh',
-        // positionOptions: {
-        //     enableHighAccuracy: true
-        // },
-        //   trackUserLocation: true
+
     });
 
-    // this.map.addControl(new window.mapboxgl.GeolocateControl({
-    //   positionOptions: {
-    //     enableHighAccuracy: true
-    // },
-    //   trackUserLocation: true
-    // }));
 
     //zoom in, zoom out, and compass control
     this.map.addControl(new window.mapboxgl.NavigationControl());
