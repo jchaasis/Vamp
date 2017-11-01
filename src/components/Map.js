@@ -36,12 +36,7 @@ class Map extends Component {
       if (this.state.lat === null && this.state.lng === null){
         this.map.setCenter([position.coords.longitude, position.coords.latitude]);
         this.map.setZoom(16);
-        // console.log(this.map.setCenter())
       }
-      // this.map.setCenter([this.state.lng, this.state.lat]);
-      // this.map.setZoom(16);
-      // console.log(this.map.setCenter())
-
 
       this.setState({
         lat: position.coords.latitude,
@@ -51,8 +46,6 @@ class Map extends Component {
   }
 
   componentWillMount(){
-    // this.getLocation();
-    // // this.props.getCurrentLoc()
   }
 
   establishMap(){
@@ -63,6 +56,7 @@ class Map extends Component {
         container: 'map',
         center:[this.state.lng, this.state.lat],
         style: 'mapbox://styles/vamplife/cj8om9bgf8tm92ro2i66lz2uh',
+
 
     });
 
@@ -171,10 +165,8 @@ getCurrent(){
     let b = isClose.longitude - this.state.lng
 
     let fence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))
-    // console.log(fence)
 
     if (fence <= 0.00137241985 && isClose.likes.length >= 20){
-      // console.log("HOT SPOT!")
       window.Notification.requestPermission().then((permission)=>{
         let n = new window.Notification("L I T  Event Nearby!", {body: `${isClose.description} until ${convertTime(isClose.eventEnd)}`, icon: `${flame}`, image: `${flame}`, badge: `${flame}`});
       });
@@ -198,28 +190,6 @@ getCurrent(){
       .setLngLat([this.state.lng, this.state.lat])
       .addTo(this.map)
 }
-
-//convert the time into am/pm format.
-// convertTime(time){
-//   //split the time at the colons
-//   let splitTime = time.split(':');
-//
-//   let meridies ; // used to store am or pm
-//
-//   //remove the seconds
-//   splitTime.splice(2, 1)
-//
-//   //convert afternoon time
-//   if (parseInt(splitTime[0]) > 12){
-//     meridies = 'pm'
-//     splitTime[0] = (parseInt(splitTime[0]) - 12).toString();//Convert the hours into a number then subtract 12. After calculating the new number, convert back to a string.
-//   } else {
-//     //add am to the morning time
-//     meridies = 'am'
-//   }
-//   //return the final result
-//   return(splitTime.join(':') + meridies)
-// }
 
   render(){
     // this.getLocation();
